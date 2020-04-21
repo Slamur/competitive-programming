@@ -191,9 +191,9 @@ void read_input() {
 }
 
 /*
-dp
-segment
-sort
+#dp
+#segment
+#sort
 */
 
 // =============================================

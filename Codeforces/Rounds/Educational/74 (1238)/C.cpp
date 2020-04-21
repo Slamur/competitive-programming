@@ -53,9 +53,9 @@ int main() {
 #endif
 
 	/*
-	dp
-	linear
-	compress
+	#dp
+	#linear
+	#compress
 	*/
 
 	for (int t = 0; t < tests; ++t) {
@@ -71,7 +71,7 @@ int main() {
 		for (int i = n - 1; i >= 0; --i) {
 			if (i <= n - 2) {
 				if (p[i + 1] == p[i] + 1) {
-					// p[i], p[i] + 1, p[i + 2]
+					// p[i], p[i] + 1, p[i] + 2
 					dp[i] = min(dp[i], dp[i + 2]);
 				}
 			}

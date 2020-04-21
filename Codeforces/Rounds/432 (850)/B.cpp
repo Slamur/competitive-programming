@@ -206,10 +206,10 @@ Input read_input() {
 }
 
 /*
-divisors
-harmonic
-prefix sums
-gcd
+#divisors
+#harmonic
+#prefix sums
+#gcd
 */
 
 ans_t get_answer(Input & input) {

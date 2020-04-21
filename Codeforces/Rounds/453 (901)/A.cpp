@@ -203,9 +203,9 @@ Input read_input() {
 }
 
 /*
-tree
-hash
-isomorphism
+#tree
+#hash
+#isomorphism
 */
 
 ans_t get_answer(Input & input) {

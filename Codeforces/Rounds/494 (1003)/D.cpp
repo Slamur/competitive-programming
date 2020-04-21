@@ -40,8 +40,8 @@ int main() {
 #endif
 
 	/*
-	greedy
-	binary representation
+	#greedy
+	#binary representation
 	*/
 
 	for (int t = 0; t < tests; ++t) {

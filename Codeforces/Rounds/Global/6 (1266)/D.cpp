@@ -194,10 +194,10 @@ void read_input() {
 }
 
 /*
-graph
-greedy
-balances
-emulation is not so obvious square (!)
+#graph
+#greedy
+#balances
+#square emulation
 */
 
 // =============================================

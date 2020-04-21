@@ -43,9 +43,9 @@ int main() {
 #endif
 
 	/*
-	combinatorics
-	polynom coefficients
-	map
+	#combinatorics
+	#polynom coefficients
+	#map
 	*/
 
 	for (int t = 0; t < tests; ++t) {

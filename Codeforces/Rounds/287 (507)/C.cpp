@@ -201,8 +201,9 @@ Input read_input() {
 }
 
 /*
-binary tree
-bit operations
+#binary tree
+#binary representation
+#bit operations
 */
 
 ans_t get_answer(Input & input) {

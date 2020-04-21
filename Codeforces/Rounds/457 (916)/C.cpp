@@ -23,11 +23,11 @@ vi rvi(int n) {
 }
 
 /**
-graph
-shortest path
-minimal spanning tree
-prime
-constructive
+#graph
+#shortest path
+#minimal spanning tree
+#prime number
+#constructive
 */
 
 int main() {

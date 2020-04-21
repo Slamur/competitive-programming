@@ -203,8 +203,8 @@ Input read_input() {
 }
 
 /*
-modular
-binpow
+#modular
+#binpow
 */
 
 // =============================================

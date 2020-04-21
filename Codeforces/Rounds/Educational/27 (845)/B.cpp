@@ -199,8 +199,8 @@ Input read_input() {
 }
 
 /*
-bruteforce
-lucky ticket
+#bruteforce
+#lucky ticket
 */
 
 // =============================================

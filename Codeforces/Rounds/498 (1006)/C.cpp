@@ -203,8 +203,8 @@ Input read_input() {
 }
 
 /*
-prefix sums
-two pointers
+#prefix sums
+#two pointers
 */
 
 ans_t get_answer(Input & input) {

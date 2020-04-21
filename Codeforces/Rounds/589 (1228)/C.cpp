@@ -88,11 +88,11 @@ int main() {
 #endif
 
 	/*
-	number theory
-	prime
-	modular arithmetic
-	factorial
-	factorial prime power
+	#number theory
+	#prime number
+	#modular arithmetic
+	#factorial
+	#factorial prime power
 	*/
 
 	for (int t = 0; t < tests; ++t) {

@@ -206,7 +206,8 @@ Input read_input() {
 }
 
 /*
-sort
+#array
+#sort
 */
 
 ans_t get_answer(Input & input) {

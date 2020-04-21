@@ -216,11 +216,11 @@ void read_input() {
 }
 
 /*
-array
-segment query
-mass update
-sqrt decomposition
-linked list
+#array
+#segment query
+#mass update
+#sqrt decomposition
+#linked list
 */
 
 // =============================================

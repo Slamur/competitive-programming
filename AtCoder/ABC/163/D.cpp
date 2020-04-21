@@ -190,8 +190,8 @@ void read_input() {
 }
 
 /*
-number theory
-modular
+#number theory
+#modular
 */
 
 // =============================================

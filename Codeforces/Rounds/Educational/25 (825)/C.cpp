@@ -23,8 +23,8 @@ vi rvi(int n) {
 }
 
 /**
-array
-sort
+#array
+#sort
 */
 
 int main() {

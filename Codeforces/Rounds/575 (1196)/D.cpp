@@ -53,10 +53,10 @@ int main() {
 #endif
 
 	/*
-	string
-	queries
-	window
-	prefix
+	#string
+	#queries
+	#window
+	#prefix
 	*/
 
 	for (int t = 0; t < tests; ++t) {

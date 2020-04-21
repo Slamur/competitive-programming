@@ -202,10 +202,10 @@ Input read_input() {
 }
 
 /*
-graph theory
-tree
-components
-combinatorics
+#graph theory
+#tree
+#components
+#combinatorics
 */
 
 ans_t get_answer(Input & input) {

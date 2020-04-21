@@ -189,7 +189,8 @@ void read_input() {
 }
 
 /*
-geometry
+#geometry
+#circle
 */
 
 // =============================================

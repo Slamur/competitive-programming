@@ -41,7 +41,7 @@ int main() {
 #endif
 
 	/*
-	long arithmetic
+	#long arithmetic
 	*/
 
 	for (int t = 0; t < tests; ++t) {

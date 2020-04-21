@@ -201,46 +201,28 @@ Input read_input() {
 }
 
 /*
-d&c
-merge sort
+#array
+#sort
+#greedy
+#merge sort
+#divide & conquer
 */
 
 vi a;
 int need;
+int cur;
 
 void merge(int left, int right) {
-	if (left + 1 == right) return;
-	if (need > 0) {
+	if (left + 1 < right && need > 0) {
 		need -= 2;
 
 		int mid = (left + right) / 2;
-
-		int ls = mid - left, rs = right - mid;
-
-		vi la;
-		vi ra;
-
-		for (int i = 0, j = right - 1; i < ls; ++i, --j) {
-			la.push_back(a[j]);
-		}
-
-		reverse(la.begin(), la.end());
-
-		for (int i = 0, j = left; i < rs; ++i, ++j) {
-			ra.push_back(a[j]);
-		}
-
-		for (int i = left; i < mid; ++i) {
-			a[i] = la[i - left];
-		}
-
-		for (int i = mid; i < right; ++i) {
-			a[i] = ra[i - mid];
-		}
-
-
-		merge(left, mid);
 		merge(mid, right);
+		merge(left, mid);
+	} else {
+		for (int i = left; i < right; ++i) {
+			a[i] = cur++;
+		}
 	}
 }
 
@@ -249,11 +231,9 @@ ans_t get_answer(Input & input) {
 	int k = input.k;
 
 	a.assign(n, 0);
-	for (int i = 0; i < n; ++i) {
-		a[i] = i + 1;
-	}
 
 	need = k - 1;
+	cur = 1;
 
 	merge(0, n);
 	if (need != 0) {

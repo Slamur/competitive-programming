@@ -220,9 +220,10 @@ Input read_input() {
 }
 
 /*
-graph
-bfs
-number of shortest paths
+#graph
+#bfs
+#shortest path
+#number of shortest paths
 */
 
 ans_t get_answer(Input & input) {

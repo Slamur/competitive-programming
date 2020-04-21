@@ -40,9 +40,9 @@ int main() {
 #endif
 
 	/*
-	array
-	counting
-	binary search
+	#array
+	#counting
+	#binary search
 	*/
 
 	for (int t = 0; t < tests; ++t) {

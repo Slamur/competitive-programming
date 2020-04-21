@@ -95,9 +95,9 @@ int main() {
 #endif
 
 	/*
-	graph
-	tree
-	dfs
+	#graph
+	#tree
+	#dfs
 	*/
 
 	for (int t = 0; t < tests; ++t) {
