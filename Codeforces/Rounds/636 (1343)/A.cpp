@@ -106,9 +106,9 @@ void read_graph(int n, int edges, graph_t & graph, bool oriented = false) {
 }
 
 /*
-@array
-@construction
-@parity
+@binary representation
+@bit operations
+@divisor
 */
 
 void solve_test() {
