@@ -147,124 +147,101 @@ int init_input() {
 
 ///////////////////////////////////////////////////////////////////
 
-struct DSU {
-	vector<size_t> parents;
-	vector<size_t> ranks;
-	vi is_cycles;
-
-	DSU(vi& degrees) {
-		resize(degrees);
-	}
-
-	void resize(vi& degrees) {
-		size_t n = degrees.size();
-
-		parents.resize(n);
-		for (size_t v = 0; v < n; ++v) {
-			parents[v] = v;
-		}
-
-		ranks.resize(n, 1);
-
-		is_cycles.resize(n, true);
-		for (size_t v = 0; v < n; ++v) {
-			is_cycles[v] = (2 == degrees[v]);
-		}
-	}
-
-	size_t get(size_t v) {
-		size_t parent = parents[v];
-		if (parent == v) return v;
-
-		return parents[v] = get(parent);
-	}
-
-	bool merge(size_t f, size_t t) {
-		size_t a = get(f);
-		size_t b = get(t);
-
-		if (a == b) return false;
-
-		if (ranks[a] < ranks[b]) {
-			swap(a, b);
-		}
-
-		parents[b] = a;
-		if (ranks[a] == ranks[b]) ++ranks[a];
-
-		is_cycles[a] &= is_cycles[b];
-
-		return true;
-	}
-
-	bool connected(size_t f, size_t t) {
-		return get(f) == get(t);
-	}
-
-	bool is_root(size_t v) {
-		return get(v) == v;
-	}
-
-	bool is_cycle(size_t v){
-		return is_cycles[v];
-	}
-};
-
-
 /*
-tag data structures
-tag priority queue
-tag multitest
+tag lexicographic
+tag digits dp
+tag bruteforce
 */
 
 void solve_test() {
-	int tests = ri();
+	int tests = 1; // ri();
 	while (tests-- > 0) {
 		int n = ri();
-		vii a(n);
 
+		vector<string> b(n);
 		for (int i = 0; i < n; ++i) {
-			a[i].first = ri() - 1;
-			a[i].second = ri();
+			cin >> b[i];
 		}
 
-		vi cnts(n, 0);
-		vi zeros(n, 0);
-
-		for (ii& candy : a) {
-			cnts[candy.first]++;
-			zeros[candy.first] += 1 - candy.second;
+		vector<string> a(n + 1);
+		a[0] = "0";
+		for (int i = 1; i <= n; ++i) {
+			a[i] = b[i - 1];
 		}
 
-		vvi ones_by_cnts(n + 1, vi(0));
-		for (int type = 0; type < n; ++type) {
-			if (cnts[type] > 0) {
-				ones_by_cnts[cnts[type]].push_back(zeros[type]);
+		int ml = 8;
+
+		for (string& s : a) {
+			reverse(s.begin(), s.end());
+			while (s.size() < ml) {
+				s.push_back('0');
 			}
+			reverse(s.begin(), s.end());
 		}
 
-		priority_queue<int, vector<int>, greater<int>> waiting;
+		bool correct = true;
+
+		const char ANY = '?';
+
+		vi can(ml + 1);
+		for (int it = 1; it <= n; ++it) {
+			can.assign(ml + 1, false);
+
+			string& prev = a[it - 1];
+			string& cur = a[it];
+
+			for (int i = ml - 1; i >= 0; --i) {
+				char d = (ANY == cur[i] ? '9' : cur[i]);
+
+				if (prev[i] > d) {
+					can[i] = false;
+				}
+				else if (prev[i] == d) {
+					can[i] = can[i + 1];
+				}
+				else {
+					can[i] = true;
+				}
+			}
+
+			bool equal = true;
+			bool first = true;
+			for (int i = 0; i < ml; ++i) {
+				if (ANY == cur[i]) {
+					if (!equal) cur[i] = '0';
+					else cur[i] = prev[i] + (can[i + 1] ? 0 : 1);
+
+					if (first && '0' == cur[i]) cur[i]++;
+					if ('9' < cur[i]) {
+						correct = false;
+						break;
+					}
+				}
+
+				first &= ('0' == cur[i]);
+
+				if (equal && prev[i] > cur[i]) {
+					correct = false;
+					break;
+				}
+
+				equal &= prev[i] == cur[i];
+			}
+
+			correct &= !equal;
+
+			if (!correct) break;			
+		}
 		
-		ll total = 0;
-		ll total_ones = 0;
+		if (yn(correct)) {
+			for (string& s : a) {
+				reverse(s.begin(), s.end());
+				while (s.size() > 0 && '0' == s.back()) s.pop_back();
+				reverse(s.begin(), s.end());
 
-		for (int cnt = n; cnt > 0; --cnt) {
-			for (int one : ones_by_cnts[cnt]) {
-				waiting.push(one + (n - cnt));
-			}
-
-			if (waiting.size() > 0) {
-				int one = max(0, waiting.top() - (n - cnt));
-				waiting.pop();
-
-				total += cnt;
-				total_ones += one;
+				if (s.size() > 0) cout << s << ENDL;
 			}
 		}
-
-		cout << total;
-		cout << ENDL << total - total_ones; // SPACE crashes CF
-		cout << ENDL;
 	}
 }
 
