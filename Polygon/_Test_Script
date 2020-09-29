@@ -1,0 +1,43 @@
+<#assign gen = "SM_Sertificates_Generator_Random"/>
+
+<#assign minN = 1/>
+<#assign maxN = 10/>
+
+<#assign minMK = 1/>
+<#assign maxMK = 10/>
+
+<#list minN..maxN as n>
+    <#list [1000, 10000] as seed>
+        ${gen} ${seed + n} ${n} ${n} ${minMK} ${maxMK} ${minMK} ${maxMK} > $
+    </#list>
+</#list>
+
+<#assign maxN = 1000/>
+
+<#assign minMK = 1/>
+<#assign maxMK = 100/>
+
+<#list [1, 9] as minNCoeff>
+    <#assign minN = (maxN * minNCoeff / 10)?int/>
+    <#list 1..5 as it>
+        <#list [2000, 20000] as seed>
+            ${gen} ${seed + it * minNCoeff} ${minN} ${maxN} ${minMK} ${maxMK} ${minMK} ${maxMK} > $
+        </#list>
+    </#list>
+</#list>
+
+<#assign maxN = 300 * 1000/>
+
+<#assign minMK = 1/>
+<#assign maxMK = 1000/>
+
+${gen} 100500 ${maxN} ${maxN} ${minMK} ${maxMK} ${minMK} ${maxMK} > $
+
+<#list [1, 9] as minNCoeff>
+    <#assign minN = (maxN * minNCoeff / 10)?int/>
+    <#list 1..5 as it>
+        <#list [3000, 30000] as seed>
+            ${gen} ${seed + it * minNCoeff} ${minN} ${maxN} ${minMK} ${maxMK} ${minMK} ${maxMK} > $
+        </#list>
+    </#list>
+</#list>
