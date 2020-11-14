@@ -236,9 +236,7 @@ public class __Generator {
 
         if (containsMask(type, OrderType.REVERSE)) {
             for (int i = 0, j = array.length - 1; i < j; ++i, --j) {
-                int tmp = array[i];
-                array[i] = array[j];
-                array[j] = tmp;
+                swap(array, i, j);
             }
         }
 
@@ -258,10 +256,14 @@ public class __Generator {
             int first = rnd.nextInt(array.length);
             int second = rnd.nextInt(array.length);
 
-            int tmp = array[first];
-            array[first] = array[second];
-            array[second] = tmp;
+            swap(array, first, second);
         }
+    }
+
+    private static void swap(int[] array, int first, int second) {
+        int tmp = array[first];
+        array[first] = array[second];
+        array[second] = tmp;
     }
 
     private static class PersistentSegmentTree {
