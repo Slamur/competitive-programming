@@ -254,6 +254,8 @@ public class __Solution {
         SolutionWriter println();
 
         SolutionWriter print(String line);
+
+        default SolutionWriter print(char character) { return print("" + character); }
         default SolutionWriter printSpace() {
             return print(" ");
         }
