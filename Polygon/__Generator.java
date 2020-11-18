@@ -195,8 +195,38 @@ public class __Generator {
         return array;
     }
 
+    private static int[] increaseAll(int[] a) {
+        return Arrays.stream(a).map(v -> v + 1).toArray();
+    }
+
     private static int[] nextPermutation(int size) {
         return castInt(shuffled(order(size)));
+    }
+
+    private static int[] generatePermutation(int size, int permutationIndex) {
+        boolean[] used = new boolean[size];
+        int[] facts = new int[size];
+        facts[0] = 1;
+        for (int i = 1; i < size; ++i) facts[i] = facts[i - 1] * i;
+
+        int[] permutation = new int[size];
+        for (int i = 0; i < size; ++i) {
+            int fact = facts[size - i - 1];
+
+            for (int j = 0; j < size; ++j) {
+                if (used[j]) continue;
+
+                if (permutationIndex < fact) {
+                    permutation[i] = j;
+                    used[j] = true;
+                    break;
+                } else {
+                    permutationIndex -= fact;
+                }
+            }
+        }
+
+        return permutation;
     }
 
     interface GeneratorType {
