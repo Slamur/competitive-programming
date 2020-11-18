@@ -1,0 +1,122 @@
+<#assign gen = "SM_MainLetters_Generator_Random"/>
+<#assign gen_perm = "SM_MainLetters_Generator_Permutation"/>
+<#assign gen_sorted = "SM_MainLetters_Generator_AboutSorted"/>
+<#assign gen_waved = "SM_MainLetters_Generator_AboutWaved"/>
+
+<#assign minNs = [1, 1, 4, 11, 101, 1001]/>
+<#assign maxNs = [10, 3, 10, 100, 1000, 100 * 1000]/>
+
+<#function fact n>
+    <#assign res = 1/>
+    <#list 1..n as it>
+        <#assign res = res * it/>
+    </#list>
+    <#return res>
+</#function>
+
+<#macro script0 seed minN maxN>
+</#macro>
+
+<#macro script1 seed minN maxN>
+    <#assign total = 9/>
+    <#assign manual = 3/>
+
+    <#assign n = 3/>
+    <#assign permsCount = fact(n)/>
+    <#list 1..permsCount as permIndex>
+        ${gen_perm} ${seed + permIndex} ${n} ${permIndex} > $
+    </#list>
+</#macro>
+
+<#macro script2 seed minN maxN>
+    <#assign total = 21/>
+    <#assign used = 0/>
+
+    <#assign manual = 3/>
+    <#assign used = used + manual/>
+
+    <#list minN..maxN as n>
+        ${gen_sorted} ${seed + used} ${n} ${n} 0 3 > $
+        ${gen_waved} ${seed + used + 1} ${n} ${n} 0 3 > $
+        <#assign used = used + 2/>
+    </#list>
+
+    <#list used..(total - 1) as it>
+        ${gen} ${seed + it} ${minN} ${maxN} > $
+    </#list>
+</#macro>
+
+<#macro script3 seed minN maxN>
+    <#assign total = 15/>
+    <#assign used = 0/>
+
+    <#assign manual = 0/>
+    <#assign used = used + manual/>
+
+    <#assign sortedCount = 5/>
+
+    <#list 0..(sortedCount - 1) as it>
+        <#assign n = maxN - it/>
+        ${gen_sorted} ${seed + used} ${n} ${n} 0 10 > $
+        ${gen_waved} ${seed + used + 1} ${n} ${n} 0 10 > $
+        <#assign used = used + 2/>
+    </#list>
+
+    <#list used..(total - 1) as it>
+        ${gen} ${seed + it} ${minN} ${maxN} > $
+    </#list>
+</#macro>
+
+<#macro script4 seed minN maxN>
+    <#assign total = 15/>
+    <#assign used = 0/>
+
+    <#assign manual = 0/>
+    <#assign used = used + manual/>
+
+    <#assign sortedCount = 5/>
+
+    <#list 0..(sortedCount - 1) as it>
+        <#assign n = maxN - it/>
+        ${gen_sorted} ${seed + used} ${n} ${n} 0 30 > $
+        ${gen_waved} ${seed + used + 1} ${n} ${n} 0 30 > $
+        <#assign used = used + 2/>
+    </#list>
+
+    <#list used..(total - 1) as it>
+        ${gen} ${seed + it} ${minN} ${maxN} > $
+    </#list>
+</#macro>
+
+<#macro script5 seed minN maxN >
+    <#assign total = 20/>
+    <#assign used = 0/>
+
+    <#assign manual = 0/>
+    <#assign used = used + manual/>
+
+    <#assign sortedCount = 10/>
+
+    <#list 0..(sortedCount - 1) as it>
+        <#assign n = maxN - it/>
+        ${gen_sorted} ${seed + used} ${n} ${n} 0 100 > $
+        ${gen_waved} ${seed + used + 1} ${n} ${n} 0 100 > $
+        <#assign used = used + 2/>
+    </#list>
+
+    <#assign random = 10/>
+    <#list 0..(random - 1) as it>
+        ${gen} ${seed + it} ${maxN - it} ${maxN} > $
+    </#list>
+</#macro>
+
+<#assign scripts = [script0, script1, script2, script3, script4, script5]/>
+
+<#assign groupsCount = maxNs?size/>
+
+<#list 0..(groupsCount - 1) as group>
+    <#assign script = scripts[group]/>
+    <@script seed = (group + 1) * 1000
+             minN = minNs[group]
+             maxN = maxNs[group]/>
+</#list>
