@@ -6,6 +6,10 @@
 <#assign minNs = [1, 1, 4, 11, 101, 1001]/>
 <#assign maxNs = [10, 3, 10, 100, 1000, 100 * 1000]/>
 
+<#function div a b>
+    <#return (a / b)?int>
+</#function>
+
 <#function fact n>
     <#assign res = 1/>
     <#list 1..n as it>
