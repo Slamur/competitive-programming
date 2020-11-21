@@ -63,7 +63,7 @@ int main(int argc, char* argv[])
         group_data(3001, MAX_N) // n <= 3e5
     };
 
-    int group_index = (validator.group() == "") ? stoi(validator.group()) : 9;
+    int group_index = (validator.group() != "") ? stoi(validator.group()) : 9;
     auto const& group = groups[group_index];
 
     int n = read_int(group.minN, group.maxN, "n", SPACE_SEP);
