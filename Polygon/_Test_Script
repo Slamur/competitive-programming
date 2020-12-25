@@ -1,4 +1,14 @@
-<#assign gen = "SM_Sertificates_Generator_Random"/>
+<#assign problem_name = "Sertificates"/>
+
+<#function gen_name type>
+    <#return "SM_" + problem_name + "_Generator_" + type>
+</#function>
+
+<#assign gen = gen_name("Random")/>
+
+<#function div a b>
+    <#return (a / b)?int>
+</#function>
 
 <#assign minN = 1/>
 <#assign maxN = 10/>

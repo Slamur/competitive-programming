@@ -1,7 +1,13 @@
-<#assign gen = "SM_MainLetters_Generator_Random"/>
-<#assign gen_perm = "SM_MainLetters_Generator_Permutation"/>
-<#assign gen_sorted = "SM_MainLetters_Generator_AboutSorted"/>
-<#assign gen_waved = "SM_MainLetters_Generator_AboutWaved"/>
+<#assign problem_name = "MainLetters"/>
+
+<#function gen_name type>
+    <#return "SM_" + problem_name + "_Generator_" + type>
+</#function>
+
+<#assign gen = gen_name("Random")/>
+<#assign gen_perm = gen_name("Permutation")/>
+<#assign gen_sorted = gen_name("AboutSorted")/>
+<#assign gen_waved = gen_name("AboutWaved")/>
 
 <#assign minNs = [1, 1, 4, 11, 101, 1001]/>
 <#assign maxNs = [10, 3, 10, 100, 1000, 100 * 1000]/>
