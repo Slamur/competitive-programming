@@ -292,6 +292,13 @@ public class __Solution {
             return this;
         }
 
+        default SolutionWriter printAllSeparated(long... values) {
+            for (long value : values) {
+                print(value).println();
+            }
+            return this;
+        }
+
         default SolutionWriter printPointsSeparated(Point[] points) {
             for (Point point : points) {
                 printAll(point.x, point.y).println();
