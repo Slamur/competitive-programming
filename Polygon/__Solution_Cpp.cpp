@@ -99,7 +99,6 @@ int get_bit(int mask, int bit) {
 void init_input() {
 	ios::sync_with_stdio(false);
 	cin.tie(nullptr);
-	cout.tie(nullptr);
 
 	cout << setprecision(10) << fixed;
 }
