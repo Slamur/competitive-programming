@@ -2,7 +2,7 @@ import java.awt.Point;
 import java.io.*;
 import java.util.*;
 
-public class __Solution {
+public class __Solution_Java {
 
     public static void main(String[] args) {
         new Solution().run();
