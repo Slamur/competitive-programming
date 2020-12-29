@@ -16,6 +16,15 @@ public class __Solution {
 
     //////////////////////////////////////////////////////////////////
 
+    long sqrtLong(long x) {
+        long root = (long)Math.sqrt(x);
+        while (root * root > x) --root;
+        while ((root + 1) * (root + 1) <= x) ++root;
+        return root;
+    }
+
+    //////////////////////////////////////////////////////////////////
+
     private boolean yesNo(boolean yes) {
         return yesNo(yes, "YES", "NO");
     }
@@ -26,6 +35,10 @@ public class __Solution {
     }
 
     //////////////////////////////////////////////////////////////////
+
+    private long readLong() {
+        return Long.parseLong(readString());
+    }
 
     private int readInt() {
         return Integer.parseInt(readString());
@@ -68,7 +81,7 @@ public class __Solution {
     private void initIO() throws IOException {
         Locale.setDefault(Locale.US);
 
-        String fileName = "";
+        String fileName = "pobeda";
 
         if (!fileName.isEmpty()) {
             initFileIO(fileName + ".in", fileName + ".out");
