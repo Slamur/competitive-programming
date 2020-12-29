@@ -81,7 +81,7 @@ public class __Solution {
     private void initIO() throws IOException {
         Locale.setDefault(Locale.US);
 
-        String fileName = "pobeda";
+        String fileName = "";
 
         if (!fileName.isEmpty()) {
             initFileIO(fileName + ".in", fileName + ".out");
