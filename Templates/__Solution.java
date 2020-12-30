@@ -40,6 +40,12 @@ public class __Solution {
         return Long.parseLong(readString());
     }
 
+    private int[] readIntArray(int n) {
+        int[] a = new int[n];
+        for (int i = 0; i < n; ++i) a[i] = readInt();
+        return a;
+    }
+
     private int readInt() {
         return Integer.parseInt(readString());
     }
