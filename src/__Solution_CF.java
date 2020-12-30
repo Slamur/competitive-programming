@@ -21,11 +21,10 @@ public class __Solution_CF implements Runnable{
     private final static Random rnd = new Random();
     private final static String fileName = "";
 
-    private final static long MODULO = 1000 * 1000 * 1000 + 7;
+    private final static int MODULO = 1000 * 1000 * 1000 + 7;
 
     // THERE SOLUTION STARTS!!!
     private void solve() {
-
     }
 
     /////////////////////////////////////////////////////////////////////
@@ -41,11 +40,11 @@ public class __Solution_CF implements Runnable{
     /////////////////////////////////////////////////////////////////////
 
     @SuppressWarnings("unused")
-    private static long inverse(long x) {
+    private static int inverse(long x) {
         return binpow(x, MODULO - 2);
     }
 
-    private static long binpow(long base, long power) {
+    private static int binpow(long base, long power) {
         if (power == 0) return 1;
         if ((power & 1) == 0) {
             long half = binpow(base, power >> 1);
@@ -56,12 +55,12 @@ public class __Solution_CF implements Runnable{
         }
     }
 
-    private static long add(long a, long b) { return (a + b) % MODULO; }
+    private static int add(int a, int b) { return (a + b) % MODULO; }
 
     @SuppressWarnings("unused")
-    private static long subtract(long a, long b) { return add(a, MODULO - b % MODULO); }
+    private static int subtract(int a, int b) { return add(a, MODULO - b % MODULO); }
 
-    private static long mult(long a, long b) { return (a * b) % MODULO; }
+    private static int mult(long a, long b) { return (int)((a * b) % MODULO); }
 
     /////////////////////////////////////////////////////////////////////
 
