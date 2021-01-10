@@ -55,8 +55,36 @@ void init_io() {
 	cout << setprecision(10) << fixed;
 }
 
-void solve() {
+ll get_answer(ll a, ll b, ll k) {
+    ll answer = 0;
+    for (ll y = 1; ; ++y) {
+        ll y3 = y * y * y;
+        if (y3 < a) continue;
+        if (b < y3) break;
 
+        ll leftX2 = max(y3 - k, a);
+        ll rightX2 = min(y3 + k, b);
+
+        ll leftX = sqrt_ld(leftX2);
+        if (leftX * leftX < leftX2) ++leftX;
+
+        ll rightX = sqrt_ld(rightX2);
+
+        if (leftX <= rightX) {
+            answer += rightX - leftX + 1;
+        }
+    }
+
+    return answer;
+}
+
+void solve() {
+    ll a = rll();
+    ll b = rll();
+    ll k = rll();
+
+    ll answer = get_answer(a, b, k);
+    cout << answer << ENDL;
 }
 
 int main() {
