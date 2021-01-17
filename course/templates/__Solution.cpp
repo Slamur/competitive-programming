@@ -37,6 +37,30 @@ bool yn(bool result, string yes = "YES", string no = "NO") {
 
 //////////////////////////////////////////////////////////////////
 
+vector<string> split(string& s, string seps) {
+    vector<string> parts;
+
+    string part = "";
+    auto add_part = [&]() {
+        parts.push_back(part);
+        part = "";
+    };
+
+    for (char ch : s) {
+        if (string::npos != seps.find(ch)) {
+            add_part();
+        } else {
+            part += ch;
+        }
+    }
+
+    add_part();
+
+    return parts;
+}
+
+//////////////////////////////////////////////////////////////////
+
 ld sqrt_ld(ld value) {
     return sqrt(value);
 }
