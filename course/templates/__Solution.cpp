@@ -51,6 +51,11 @@ void init_io() {
 
         string output_file_name = file_name + ".out";
         freopen(output_file_name.c_str(), "wt", stdout);
+    } else {
+        #ifndef ONLINE_JUDGE
+        string input_file_name = "input.txt"; // reading from file in the same directory
+        freopen(input_file_name.c_str(), "rt", stdin);
+        #endif
     }
 
 	ios::sync_with_stdio(false);
