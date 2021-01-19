@@ -29,15 +29,6 @@ string rs() {
     return read<string>();
 }
 
-template<typename T>
-vector<T> rv(int size) {
-    vector<T> a(size);
-    for (int i = 0; i < size; ++i) {
-        a[i] = read<T>();
-    }
-    return a;
-}
-
 //////////////////////////////////////////////////////////////////
 
 bool yn(bool result, string yes = "YES", string no = "NO") {
@@ -98,8 +89,27 @@ void init_io() {
 	cout << setprecision(10) << fixed;
 }
 
-void solve() {
+vector<ii> get_ans(string& s) {
+    int n = s.length();
 
+    return {
+        make_pair(0, 2),
+        make_pair(1, 2),
+        make_pair(1, 2 * n - 1)
+    };
+}
+
+void solve() {
+    string s = rs();
+
+    vector<ii> ops = get_ans(s);
+
+    string op_ids = "LR";
+
+    cout << ops.size() << ENDL;
+    for (auto& op : ops) {
+        cout << op_ids[op.first] << SPACE << op.second << ENDL;
+    }
 }
 
 int main() {

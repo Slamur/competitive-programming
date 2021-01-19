@@ -98,8 +98,46 @@ void init_io() {
 	cout << setprecision(10) << fixed;
 }
 
-void solve() {
+ii get_ans(string& s, string& t) {
+    vector<int> counts(1 << 8, 0);
+    for (char ch : s) {
+        counts[ch]++;
+    }
 
+    int same = 0, other = 0;
+
+    int n = t.length();
+    vector<bool> used(n);
+    for (int i = 0; i < n; ++i) {
+        char ch = t[i];
+        if (counts[ch] > 0) {
+            used[i] = true;
+            --counts[ch];
+            ++same;
+        }
+    }
+
+    for (int i = 0; i < n; ++i) {
+        if (used[i]) continue;
+
+        char ch = t[i];
+        char rev_ch = islower(ch) ? toupper(ch) : tolower(ch);
+
+        if (counts[rev_ch] > 0) {
+            --counts[rev_ch];
+            ++other;
+        }
+    }
+
+    return make_pair(same, other);
+}
+
+void solve() {
+    string s = rs();
+    string t = rs();
+
+    ii ans = get_ans(s, t);
+    cout << ans.first << SPACE << ans.second << ENDL;
 }
 
 int main() {

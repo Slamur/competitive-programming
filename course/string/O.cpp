@@ -98,8 +98,57 @@ void init_io() {
 	cout << setprecision(10) << fixed;
 }
 
-void solve() {
+ii get_ans(string& s, string& t) {
+    char start = 'a', end = 'z';
+    int size = end - start + 1;
 
+    vector<int> s_counts(size, 0);
+    for (char ch : s) {
+        s_counts[ch - start]++;
+    }
+
+    vector<int> t_counts(size, 0);
+    for (char ch : t) {
+        t_counts[ch - start]++;
+    }
+
+    ii need_tree = { false, false };
+
+    bool need_remove = false;
+    for (int ch = 0; ch < size; ++ch) {
+        int delta = s_counts[ch] - t_counts[ch];
+
+        if (delta < 0) return need_tree;
+
+        if (delta > 0) {
+            need_remove = true;
+        }
+    }
+
+    int ti = 0;
+    for (int si = 0; si < s.length() && ti < t.length(); ++si) {
+        if (s[si] == t[ti]) {
+            ++ti;
+        }
+    }
+
+    bool need_swap = (ti != t.length());
+
+    return { need_remove, need_swap } ;
+}
+
+void solve() {
+    string s = rs();
+    string t = rs();
+
+    ii ans = get_ans(s, t);
+
+    vector<string> ans_names = {
+        "need tree", "automaton", "array", "both"
+    };
+
+    int name_index = (ans.first << 0) | (ans.second << 1);
+    cout << ans_names[name_index] << ENDL;
 }
 
 int main() {

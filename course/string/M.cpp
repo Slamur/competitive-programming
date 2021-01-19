@@ -98,8 +98,37 @@ void init_io() {
 	cout << setprecision(10) << fixed;
 }
 
-void solve() {
+string get_ans(string& s, vector<int>& a) {
+    int n = s.length();
+    vector<bool> swapped(n / 2 + 1, false);
 
+    for (int index : a) {
+        swapped[index] = !swapped[index];
+    }
+
+    for (int index = 1; index < swapped.size(); ++index) {
+        if (swapped[index - 1]) {
+            swapped[index] = !swapped[index];
+        }
+    }
+
+    for (int i = 0, j = n - 1; i < j; ++i, --j) {
+        if (swapped[i]) {
+            swap(s[i], s[j]);
+        }
+    }
+
+    return s;
+}
+
+void solve() {
+    string s = rs();
+    int m = ri();
+    vector<int> a = rv<int>(m);
+    for (int& index : a) --index;
+
+    string ans = get_ans(s, a);
+    cout << ans << ENDL;
 }
 
 int main() {

@@ -4,7 +4,6 @@ using namespace std;
 
 using ll = int64_t;
 using ld = long double;
-using ii = pair<int, int>;
 
 const char SPACE = ' ', ENDL = '\n';
 
@@ -27,15 +26,6 @@ ll rll() {
 
 string rs() {
     return read<string>();
-}
-
-template<typename T>
-vector<T> rv(int size) {
-    vector<T> a(size);
-    for (int i = 0; i < size; ++i) {
-        a[i] = read<T>();
-    }
-    return a;
 }
 
 //////////////////////////////////////////////////////////////////
@@ -98,8 +88,40 @@ void init_io() {
 	cout << setprecision(10) << fixed;
 }
 
-void solve() {
+pair<string, int> get_ans(string& s) {
+    string best_s = s;
+    int best_k = 1;
 
+    for (int k = 2, n = s.length(); k <= n; ++k) {
+        string suffix = s.substr(k - 1, n - (k - 1));
+        string prefix = s.substr(0, k - 1);
+        if (suffix.length() % 2 == 1) {
+            reverse(prefix.begin(), prefix.end());
+        }
+
+        string total = suffix + prefix;
+        if (best_s > total) {
+            best_s = total;
+            best_k = k;
+        }
+    }
+
+    return make_pair(best_s, best_k);
+}
+
+void solve_test() {
+    ri(); // n
+    string s = rs();
+
+    pair<string, int> ans = get_ans(s);
+    cout << ans.first << ENDL << ans.second << ENDL;
+}
+
+void solve() {
+    int tests = ri();
+    for (int test = 0; test < tests; ++test) {
+        solve_test();
+    }
 }
 
 int main() {
