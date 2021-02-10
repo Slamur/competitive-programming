@@ -47,6 +47,18 @@ bool yn(bool result, string yes = "YES", string no = "NO") {
 
 //////////////////////////////////////////////////////////////////
 
+template<typename T>
+void remin(T& target, T source) {
+    target = min(target, source);
+}
+
+template<typename T>
+void remax(T& target, T source) {
+    target = max(target, source);
+}
+
+//////////////////////////////////////////////////////////////////
+
 vector<string> split(string& s, string seps) {
     vector<string> parts;
 
