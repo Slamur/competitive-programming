@@ -30,9 +30,9 @@ string rs() {
 }
 
 template<typename T>
-vector<T> rv(int size) {
+vector<T> rv(size_t size) {
     vector<T> a(size);
-    for (int i = 0; i < size; ++i) {
+    for (size_t i = 0; i < size; ++i) {
         a[i] = read<T>();
     }
     return a;
