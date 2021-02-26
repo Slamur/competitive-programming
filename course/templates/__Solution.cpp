@@ -5,6 +5,7 @@ using namespace std;
 using ll = int64_t;
 using ld = long double;
 using ii = pair<int, int>;
+using vi = vector<int>;
 
 const char SPACE = ' ', ENDL = '\n';
 
@@ -40,7 +41,7 @@ vector<T> rv(size_t size) {
 
 //////////////////////////////////////////////////////////////////
 
-bool yn(bool result, string yes = "YES", string no = "NO") {
+bool yesNo(bool result, string yes = "YES", string no = "NO") {
 	cout << (result ? yes : no) << ENDL;
 	return result;
 }
