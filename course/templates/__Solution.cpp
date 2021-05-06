@@ -84,6 +84,13 @@ vector<T> rv(size_t size) {
 
 //////////////////////////////////////////////////////////////////
 
+template<typename T, typename D>
+void increase(vector<T>& values, D delta) {
+    for (T& value : values) {
+        value += delta;
+    }
+}
+
 template<typename T>
 void print(T x) {
 	cout << x << ENDL;
