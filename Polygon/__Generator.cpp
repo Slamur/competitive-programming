@@ -8,6 +8,8 @@ using namespace std;
 typedef long long ll;
 typedef long double ld;
 
+const char ENDL = '\n', SPACE = ' ';
+
 vector<pair<int, int>> steps = {
     { 1, 0 }, { 0, -1 }, { -1, 0 }, { 0, 1 }
 };
