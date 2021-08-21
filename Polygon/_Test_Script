@@ -2,14 +2,22 @@
     <#return "gen_" + type>
 </#function>
 
-<#function gen_name_anti target>
-    <#return gen_name("anti_" + target)>
+<#function gen_anti versus type>
+    <#return gen("anti_" + versus + "_" + type)>
 </#function>
 
 <#assign gen_rand = gen_name("random")/>
 
 <#function div a b>
     <#return (a / b)?int>
+</#function>
+
+<#function min a b>
+    <#return [a, b]?sort?first>
+</#function>
+
+<#function max a b>
+    <#return [a, b]?sort?last>
 </#function>
 
 <#assign minN = 1/>
