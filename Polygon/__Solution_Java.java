@@ -88,6 +88,20 @@ public class __Solution_Java {
     }
 
     static class Utils {
+        static int lowerBound(int[] array, int value) {
+            int left = -1, right = array.length;
+            while (right - left > 1) {
+                int mid = (left + right) / 2;
+                if (array[mid] >= value) right = mid;
+                else left = mid;
+            }
+            return right;
+        }
+
+        static int upperBound(int[] array, int value) {
+            return lowerBound(array, value + 1);
+        }
+
         static List<Integer> order(int size) {
             List<Integer> order = new ArrayList<>();
             for (int i = 0; i < size; ++i) order.add(i);
