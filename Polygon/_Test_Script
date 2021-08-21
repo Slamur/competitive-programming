@@ -1,10 +1,12 @@
-<#assign problem_name = "Sertificates"/>
-
 <#function gen_name type>
-    <#return "SM_" + problem_name + "_Generator_" + type>
+    <#return "gen_" + type>
 </#function>
 
-<#assign gen_rand = gen_name("Random")/>
+<#function gen_name_anti target>
+    <#return gen_name("anti_" + target)>
+</#function>
+
+<#assign gen_rand = gen_name("random")/>
 
 <#function div a b>
     <#return (a / b)?int>
