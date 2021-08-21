@@ -4,7 +4,7 @@
     <#return "SM_" + problem_name + "_Generator_" + type>
 </#function>
 
-<#assign gen = gen_name("Random")/>
+<#assign gen_rand = gen_name("Random")/>
 
 <#function div a b>
     <#return (a / b)?int>
@@ -18,7 +18,7 @@
 
 <#list minN..maxN as n>
     <#list [1000, 10000] as seed>
-        ${gen} ${seed + n} ${n} ${n} ${minMK} ${maxMK} ${minMK} ${maxMK} > $
+        ${gen_rand} ${seed + n} ${n} ${n} ${minMK} ${maxMK} ${minMK} ${maxMK} > $
     </#list>
 </#list>
 
@@ -31,7 +31,7 @@
     <#assign minN = (maxN * minNCoeff / 10)?int/>
     <#list 1..5 as it>
         <#list [2000, 20000] as seed>
-            ${gen} ${seed + it * minNCoeff} ${minN} ${maxN} ${minMK} ${maxMK} ${minMK} ${maxMK} > $
+            ${gen_rand} ${seed + it * minNCoeff} ${minN} ${maxN} ${minMK} ${maxMK} ${minMK} ${maxMK} > $
         </#list>
     </#list>
 </#list>
@@ -47,7 +47,7 @@ ${gen} 100500 ${maxN} ${maxN} ${minMK} ${maxMK} ${minMK} ${maxMK} > $
     <#assign minN = (maxN * minNCoeff / 10)?int/>
     <#list 1..5 as it>
         <#list [3000, 30000] as seed>
-            ${gen} ${seed + it * minNCoeff} ${minN} ${maxN} ${minMK} ${maxMK} ${minMK} ${maxMK} > $
+            ${gen_rand} ${seed + it * minNCoeff} ${minN} ${maxN} ${minMK} ${maxMK} ${minMK} ${maxMK} > $
         </#list>
     </#list>
 </#list>
