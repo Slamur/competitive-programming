@@ -1,98 +1,212 @@
-#include <iostream>
-#include <vector>
-#include <math.h>
-#include <algorithm>
-#include <unordered_set>
-#include <unordered_map>
-#include <map>
-#include <set>
-#include <bitset>
-#include <ctime>
-#include <queue>
-#include <deque>
-#include <iomanip>
-#include <functional>
-#include <random>
-#include <fstream>
-#include <ctype.h>
+#include <bits/stdc++.h>
 
 using namespace std;
 
-typedef uniform_int_distribution<> uid;
-typedef mt19937 rnd_t;
-
-typedef long long ll;
-
-typedef pair<int, int> ii;
-
-typedef vector<int> vi;
-typedef vector<size_t> vsz;
-
-typedef vector<ll> vll;
-typedef vector<vll> vvll;
-
-typedef vector<ii> vii;
-typedef vector<vii> vvii;
-
-typedef vector<vi> vvi;
-typedef vvi graph_t;
-
-typedef vector<bool> vb;
-typedef vector<vb> vvb;
-
-typedef vector<string> vs;
+using ll = int64_t;
+using ld = long double;
+using ii = pair<int, int>;
+using vi = vector<int>;
+using vvi = vector<vi>;
+using vll = vector<ll>;
+using vvll = vector<vll>;
+using vii = vector<ii>;
+using vs = vector<string>;
+using vd = vector<double>;
+using vb = vector<bool>;
 
 const char SPACE = ' ', ENDL = '\n';
 
-const int BASE = (int)1e9 + 7;
-const int MODULO = BASE; // 1e9 + 31; //998244353
+//////////////////////////////////////////////////////////////////
 
-typedef ll mod_t;
+const int MODULO = 1e9 + 7;
+
+void readd(ll& target, ll add) {
+	target += add;
+	target %= MODULO;
+}
+
+ll add(ll target, ll add) {
+    ll result = target;
+    readd(result, add);
+    return result;
+}
+
+void remult(ll& target, ll mult) {
+	target *= mult;
+	target %= MODULO;
+}
+
+ll mult(ll target, ll mult) {
+    ll result = target;
+    remult(result, mult);
+    return result;
+}
+
+ll binpow(ll base, ll power) {
+	if (0 == power) return 1;
+
+	ll half = binpow(base, power >> 1);
+	remult(half, half);
+
+	if (power & 1) remult(half, base);
+
+	return half;
+}
 
 //////////////////////////////////////////////////////////////////
 
+template <typename T>
+T read() {
+    T value;
+    cin >> value;
+    return value;
+}
+
 int ri() {
-	int v;
-	cin >> v;
-	return v;
+    return read<int>();
 }
 
 ll rll() {
-	ll v;
-	cin >> v;
-	return v;
+    return read<ll>();
 }
 
 string rs() {
-	string s;
-	cin >> s;
-	return s;
+    return read<string>();
 }
 
-vi rvi(int n) {
-	vi a(n);
-	for (int i = 0; i < n; ++i) cin >> a[i];
-	return a;
+template<typename T>
+vector<T> rv(size_t size) {
+    vector<T> a(size);
+    for (size_t i = 0; i < size; ++i) {
+        a[i] = read<T>();
+    }
+    return a;
 }
 
-void read_graph(int n, int edges, graph_t& graph, bool oriented = false) {
-	graph.assign(n, vi());
-	for (int e = 0; e < edges; ++e) {
-		int from = ri() - 1;
-		int to = ri() - 1;
-		graph[from].push_back(to);
-		if (!oriented) graph[to].push_back(from);
-	}
+//////////////////////////////////////////////////////////////////
+
+template<typename T>
+void compress(vector<T>& values) {
+	sort(values.begin(), values.end());
+	values.erase(unique(values.begin(), values.end()), values.end());
 }
 
-bool yn(bool result, string yes = "YES", string no = "NO") {
+template<typename T, typename D>
+void increase(vector<T>& values, D delta) {
+    for (T& value : values) {
+        value += delta;
+    }
+}
+
+template<typename T>
+void print(T x) {
+	cout << x << ENDL;
+}
+
+template<typename T>
+void print_all(const vector<T>& values, char sep = SPACE) {
+	for (auto& value : values) cout << value << sep;
+	if (sep != ENDL) cout << ENDL;
+}
+
+template<typename F, typename S>
+void print_pair(const pair<F, S>& values) {
+	cout << values.first << SPACE << values.second << ENDL;
+}
+
+bool yes_no(bool result, string yes = "YES", string no = "NO") {
 	cout << (result ? yes : no) << ENDL;
 	return result;
 }
 
 //////////////////////////////////////////////////////////////////
 
-int get_bit(int mask, int bit) {
+template<typename T, typename S>
+bool remin(T& target, S source) {
+	bool change = target > source;
+	if (change) target = source;
+	return change;
+}
+
+template<typename T, typename S>
+bool remax(T& target, S source) {
+    bool change = target < source;
+	if (change) target = source;
+	return change;
+}
+
+template<typename N, typename D>
+N ceil_div(N numerator, D denominator) {
+	return (numerator - 1) / denominator + 1;
+}
+
+//////////////////////////////////////////////////////////////////
+
+ll for_pow(ll base, int power) {
+	ll result = 1;
+	for (int i = 0; i < power; ++i) result *= base;
+	return result;
+}
+
+ll gcd(ll a, ll b) {
+	return (0 == a) ? b : gcd(b % a, a);
+}
+
+ll lcm(ll a, ll b) {
+	if (0 == a && 0 == b) return 0;
+	return a / gcd(a, b) * b;
+}
+
+vi get_primes(int max_prime) {
+	vector<bool> is_prime(max_prime + 1, true);
+	is_prime[0] = false, is_prime[1] = false;
+
+	vi primes;
+	for (int i = 2; i <= max_prime; ++i) {
+		if (is_prime[i]) {
+			primes.push_back(i);
+			for (int j = i + i; j <= max_prime; j += i) {
+				is_prime[j] = false;
+			}
+		}
+	}
+
+	return primes;
+}
+
+//////////////////////////////////////////////////////////////////
+
+vector<string> split(string& s, string seps) {
+    vector<string> parts;
+
+    string part = "";
+    auto add_part = [&]() {
+        parts.push_back(part);
+        part = "";
+    };
+
+    for (char ch : s) {
+        if (string::npos != seps.find(ch)) {
+            add_part();
+        } else {
+            part += ch;
+        }
+    }
+
+    add_part();
+
+    return parts;
+}
+
+//////////////////////////////////////////////////////////////////
+
+ld sqrt_ld(ld value) {
+    return sqrt(value);
+}
+
+//////////////////////////////////////////////////////////////////
+
+int get_bit(ll mask, int bit) {
 	return (mask >> bit) & 1;
 }
 
