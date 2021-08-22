@@ -40,6 +40,8 @@ typedef vvi graph_t;
 typedef vector<bool> vb;
 typedef vector<vb> vvb;
 
+typedef vector<string> vs;
+
 const char SPACE = ' ', ENDL = '\n';
 
 const int BASE = (int)1e9 + 7;
