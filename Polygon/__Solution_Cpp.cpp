@@ -219,11 +219,15 @@ void init_input() {
 	cout << setprecision(10) << fixed;
 }
 
+void precalc() {
+}
+
 void solve() {
 }
 
 int main() {
     init_input();
+    precalc();
     solve();
     return 0;
 }
