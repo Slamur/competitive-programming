@@ -1,9 +1,11 @@
 def read_int():
     return int(input())
 
+def read_strings():
+    return input().split()
 
 def read_ints():
-    return map(int, input().split())
+    return map(int, read_strings())
 
 
 def yes_no(value, yes = "YES", no = "NO"):
@@ -35,3 +37,10 @@ def clamp(value, left, right):
         return right
 
     return value
+
+
+def main():
+
+
+if __name__ == '__main__':
+    main()
