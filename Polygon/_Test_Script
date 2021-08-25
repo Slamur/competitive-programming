@@ -3,7 +3,7 @@
 </#function>
 
 <#function gen_anti versus type>
-    <#return gen("anti_" + versus + "_" + type)>
+    <#return gen_name("anti_" + versus + "_" + type)>
 </#function>
 
 <#assign gen_rand = gen_name("random")/>
