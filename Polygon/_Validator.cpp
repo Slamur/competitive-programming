@@ -29,6 +29,15 @@ vi read_ints(int size, int min_value, int max_value, string const& name) {
     return result;
 };
 
+template <typename T, typename L>
+void ensure_limits(const string& name, T& value, L& min_value, L& max_value) {
+    ensuref(
+        min_value <= value && value <= max_value,
+        "Expected %s in [%d, %d], but found %d",
+        name.c_str(), min_value, max_value, value
+    );
+}
+
 int main(int argc, char* argv[])
 {
 	registerValidation(argc, argv);
