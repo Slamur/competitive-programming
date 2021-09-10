@@ -112,27 +112,27 @@ struct Input {
     { }
 };
 
-typedef ll answer;
+typedef ll answer_t;
 
-answer read_answer(Input & input, InStream & stream, CheckInfo & info)
+answer_t read_answer(Input & input, InStream & stream, CheckInfo & info)
 {
 
 }
 
-answer read_answer_from(const char * source,
+answer_t read_answer_from(const char * source,
                         Input & input,
                         InStream & stream,
                         CheckInfo & info)
 {
-    answer answer = read_answer(input, stream, info);
-    if (!ans.seekEof())
+    answer_t answer = read_answer(input, stream, info);
+    if (!stream.seekEof())
     {
         stream.quitf(info.result, "Extra information in the %s file", source);
     }
     return answer;
 }
 
-void quit_answer(answer expected, answer actual, CheckInfo & info) {
+void quit_answer(answer_t expected, answer_t actual, CheckInfo & info) {
     quitf(
         info.result,
         "%s answer is not best: expected answer %lld, found answer %lld",
@@ -140,7 +140,7 @@ void quit_answer(answer expected, answer actual, CheckInfo & info) {
     );
 }
 
-bool better(answer first, answer second) {
+bool better(answer_t first, answer_t second) {
 
 }
 
@@ -158,8 +158,8 @@ int main(int argc, char * argv[])
     CheckInfo jury(_fail, JURY);
     CheckInfo participant(_wa, PARTICIPANT);
 
-    answer ja = read_answer_from("answer", input, ans, jury);
-    answer pa = read_answer_from("output", input, ouf, participant);
+    answer_t ja = read_answer_from("answer", input, ans, jury);
+    answer_t pa = read_answer_from("output", input, ouf, participant);
 
     if (better(pa, ja)) quit_answer(ja, pa, jury);
     if (better(ja, pa)) quit_answer(ja, pa, participant);
