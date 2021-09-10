@@ -1093,8 +1093,8 @@ const unsigned long long random_t::mask = (1LL << 48) - 1;
 int random_t::version = -1;
 
 /* Pattern implementation */
-bool pattern::matches(const std::string &s) const {
-    return matches(s, 0);
+bool pattern::matches(const std::string &_s) const {
+    return matches(_s, 0);
 }
 
 static bool __pattern_isSlash(const std::string &s, size_t pos) {
@@ -1147,11 +1147,11 @@ std::string pattern::src() const {
     return s;
 }
 
-bool pattern::matches(const std::string &s, size_t pos) const {
+bool pattern::matches(const std::string &_s, size_t pos) const {
     std::string result;
 
     if (to > 0) {
-        int size = __pattern_greedyMatch(s, pos, chars);
+        int size = __pattern_greedyMatch(_s, pos, chars);
         if (size < from)
             return false;
         if (size > to)
@@ -1161,11 +1161,11 @@ bool pattern::matches(const std::string &s, size_t pos) const {
 
     if (children.size() > 0) {
         for (size_t child = 0; child < children.size(); child++)
-            if (children[child].matches(s, pos))
+            if (children[child].matches(_s, pos))
                 return true;
         return false;
     } else
-        return pos == s.length();
+        return pos == _s.length();
 }
 
 std::string pattern::next(random_t &rnd) const {
@@ -1323,7 +1323,7 @@ static std::vector<char> __pattern_scanCharSet(const std::string &s, size_t &pos
     return result;
 }
 
-pattern::pattern(std::string s) : s(s), from(0), to(0) {
+pattern::pattern(std::string _s) : s(_s), from(0), to(0) {
     std::string t;
     for (size_t i = 0; i < s.length(); i++)
         if (!__pattern_isCommandChar(s, i, ' '))
@@ -1555,10 +1555,10 @@ private:
             return EOFC;
     }
 
-    int getc(FILE *file) {
+    int getc(FILE *_file) {
         int c;
         if (undoChars.empty())
-            c = ::getc(file);
+            c = ::getc(_file);
         else {
             c = undoChars.back();
             undoChars.pop_back();
@@ -1577,7 +1577,7 @@ private:
     }
 
 public:
-    FileInputStreamReader(std::FILE *file, const std::string &name) : file(file), name(name), line(1) {
+    FileInputStreamReader(std::FILE *_file, const std::string &_name) : file(_file), name(_name), line(1) {
         // No operations.
     }
 
@@ -1681,7 +1681,7 @@ private:
     }
 
 public:
-    BufferedFileInputStreamReader(std::FILE *file, const std::string &name) : file(file), name(name), line(1) {
+    BufferedFileInputStreamReader(std::FILE *_file, const std::string &_name) : file(_file), name(_name), line(1) {
         buffer = new char[BUFFER_SIZE];
         isEof = new bool[BUFFER_SIZE];
         bufferSize = MAX_UNREAD_COUNT;
@@ -2136,7 +2136,7 @@ struct ValidatorBoundsHit {
     bool minHit;
     bool maxHit;
 
-    ValidatorBoundsHit(bool minHit = false, bool maxHit = false) : minHit(minHit), maxHit(maxHit) {
+    ValidatorBoundsHit(bool _minHit = false, bool _maxHit = false) : minHit(_minHit), maxHit(_maxHit) {
     };
 
     ValidatorBoundsHit merge(const ValidatorBoundsHit &validatorBoundsHit) {
@@ -2822,11 +2822,11 @@ void InStream::reset(std::FILE *file) {
     }
 }
 
-void InStream::init(std::string fileName, TMode mode) {
+void InStream::init(std::string fileName, TMode _mode) {
     opened = false;
     name = fileName;
     stdfile = false;
-    this->mode = mode;
+    this->mode = _mode;
 
     std::ifstream stream;
     stream.open(fileName.c_str(), std::ios::in);
@@ -2846,10 +2846,10 @@ void InStream::init(std::string fileName, TMode mode) {
     reset();
 }
 
-void InStream::init(std::FILE *f, TMode mode) {
+void InStream::init(std::FILE *f, TMode _mode) {
     opened = false;
     name = "untitled";
-    this->mode = mode;
+    this->mode = _mode;
 
     if (f == stdin)
         name = "stdin", stdfile = true;
