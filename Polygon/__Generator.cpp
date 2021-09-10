@@ -34,6 +34,15 @@ string rs() {
 
 const char ENDL = '\n';
 
+template <typename T>
+void print_all(const vector<T>& values, char sep = ' ') {
+    for (size_t i = 0; i < values.size(); ++i) {
+        if (i > 0) cout << sep;
+        cout << values[i];
+    }
+    cout << ENDL;
+}
+
 vii steps = {
     { 1, 0 }, { 0, -1 }, { -1, 0 }, { 0, 1 }
 };
