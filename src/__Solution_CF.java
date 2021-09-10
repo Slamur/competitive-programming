@@ -222,10 +222,12 @@ public class __Solution_CF implements Runnable{
         boolean started = false;
         while (true) {
             try {
+                in.mark(20);
                 int j = in.read();
-                if (-1 == j) {
+                if (-1 == j || '\r' == j || '\n' == j || ' ' == j) {
                     if (started) return sign * result;
-                    throw new NumberFormatException();
+                    if (-1 == j) throw new NumberFormatException();
+                    continue;
                 }
 
                 if (j == '-') {
@@ -236,8 +238,13 @@ public class __Solution_CF implements Runnable{
                 if ('0' <= j && j <= '9') {
                     result = result * 10 + j - '0';
                     started = true;
-                } else if (started) {
-                    return sign * result;
+                } else {
+                    in.reset();
+                    if (started) {
+                        return sign * result;
+                    } else {
+                        throw new NumberFormatException();
+                    }
                 }
             } catch (IOException e) {
                 throw new RuntimeIOException(e);
