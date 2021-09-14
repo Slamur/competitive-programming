@@ -8,6 +8,7 @@ using ii = pair<int, int>;
 using vi = vector<int>;
 using vvi = vector<vi>;
 using vll = vector<ll>;
+using vvll = vector<vll>;
 using vii = vector<ii>;
 using vs = vector<string>;
 using vd = vector<double>;
@@ -84,6 +85,12 @@ vector<T> rv(size_t size) {
 
 //////////////////////////////////////////////////////////////////
 
+template<typename T>
+void compress(vector<T>& values) {
+	sort(values.begin(), values.end());
+	values.erase(unique(values.begin(), values.end()), values.end());
+}
+
 template<typename T, typename D>
 void increase(vector<T>& values, D delta) {
     for (T& value : values) {
@@ -107,7 +114,7 @@ void print_pair(const pair<F, S>& values) {
 	cout << values.first << SPACE << values.second << ENDL;
 }
 
-bool yesNo(bool result, string yes = "YES", string no = "NO") {
+bool yes_no(bool result, string yes = "YES", string no = "NO") {
 	cout << (result ? yes : no) << ENDL;
 	return result;
 }
@@ -205,13 +212,26 @@ int get_bit(ll mask, int bit) {
 
 //////////////////////////////////////////////////////////////////
 
+#define NONLINE_JUDGE
+
+#ifdef ONLINE_JUDGE
+#define NFILE_IO
+#endif
+
 void init_io() {
     string fn = "";
     string in_fn = "", out_fn = "";
 
+    string basic_files_directory = "../../";
+
     #ifndef ONLINE_JUDGE
-    in_fn = "../../input.txt"; // reading from file in parent of parent of directory with file
-    //out_fn = "../../output.txt";
+    in_fn = basic_files_directory + "input.txt"; // reading from file in parent of parent of directory with file
+    out_fn = basic_files_directory + "output.txt";
+    #endif
+
+    #ifdef FILE_IO
+    in_fn = "input.txt";
+    out_fn = "output.txt";
     #endif
 
     if (!fn.empty()) {
@@ -234,7 +254,6 @@ void init_io() {
 }
 
 using graph_t = vvi;
-using ans_t = int;
 
 void precalc() {
 
