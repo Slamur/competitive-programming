@@ -18,43 +18,6 @@ const char SPACE = ' ', ENDL = '\n';
 
 //////////////////////////////////////////////////////////////////
 
-const int MODULO = 1e9 + 7;
-
-void readd(ll& target, ll add) {
-	target += add;
-	target %= MODULO;
-}
-
-ll add(ll target, ll add) {
-    ll result = target;
-    readd(result, add);
-    return result;
-}
-
-void remult(ll& target, ll mult) {
-	target *= mult;
-	target %= MODULO;
-}
-
-ll mult(ll target, ll mult) {
-    ll result = target;
-    remult(result, mult);
-    return result;
-}
-
-ll binpow(ll base, ll power) {
-	if (0 == power) return 1;
-
-	ll half = binpow(base, power >> 1);
-	remult(half, half);
-
-	if (power & 1) remult(half, base);
-
-	return half;
-}
-
-//////////////////////////////////////////////////////////////////
-
 template <typename T>
 T read() {
     T value;
@@ -86,19 +49,6 @@ vector<T> rv(size_t size) {
 //////////////////////////////////////////////////////////////////
 
 template<typename T>
-void compress(vector<T>& values) {
-	sort(values.begin(), values.end());
-	values.erase(unique(values.begin(), values.end()), values.end());
-}
-
-template<typename T, typename D>
-void increase(vector<T>& values, D delta) {
-    for (T& value : values) {
-        value += delta;
-    }
-}
-
-template<typename T>
 void print(T x) {
 	cout << x << ENDL;
 }
@@ -117,61 +67,6 @@ void print_pair(const pair<F, S>& values) {
 bool yes_no(bool result, string yes = "YES", string no = "NO") {
 	cout << (result ? yes : no) << ENDL;
 	return result;
-}
-
-//////////////////////////////////////////////////////////////////
-
-template<typename T, typename S>
-bool remin(T& target, S source) {
-	bool change = target > source;
-	if (change) target = source;
-	return change;
-}
-
-template<typename T, typename S>
-bool remax(T& target, S source) {
-    bool change = target < source;
-	if (change) target = source;
-	return change;
-}
-
-template<typename N, typename D>
-N ceil_div(N numerator, D denominator) {
-	return (numerator - 1) / denominator + 1;
-}
-
-//////////////////////////////////////////////////////////////////
-
-ll for_pow(ll base, int power) {
-	ll result = 1;
-	for (int i = 0; i < power; ++i) result *= base;
-	return result;
-}
-
-ll gcd(ll a, ll b) {
-	return (0 == a) ? b : gcd(b % a, a);
-}
-
-ll lcm(ll a, ll b) {
-	if (0 == a && 0 == b) return 0;
-	return a / gcd(a, b) * b;
-}
-
-vi get_primes(int max_prime) {
-	vector<bool> is_prime(max_prime + 1, true);
-	is_prime[0] = false, is_prime[1] = false;
-
-	vi primes;
-	for (int i = 2; i <= max_prime; ++i) {
-		if (is_prime[i]) {
-			primes.push_back(i);
-			for (int j = i + i; j <= max_prime; j += i) {
-				is_prime[j] = false;
-			}
-		}
-	}
-
-	return primes;
 }
 
 //////////////////////////////////////////////////////////////////
@@ -206,12 +101,6 @@ ld sqrt_ld(ld value) {
 
 //////////////////////////////////////////////////////////////////
 
-int get_bit(ll mask, int bit) {
-	return (mask >> bit) & 1;
-}
-
-//////////////////////////////////////////////////////////////////
-
 #define NONLINE_JUDGE
 
 #ifdef ONLINE_JUDGE
@@ -222,10 +111,10 @@ void init_io() {
     string fn = "";
     string in_fn = "", out_fn = "";
 
-    string basic_files_directory = "../../";
+    string basic_files_directory = "";
 
     #ifndef ONLINE_JUDGE
-    in_fn = basic_files_directory + "input.txt"; // reading from file in parent of parent of directory with file
+    in_fn = basic_files_directory + "input.txt";
     out_fn = basic_files_directory + "output.txt";
     #endif
 
@@ -253,41 +142,12 @@ void init_io() {
 	cout << setprecision(10) << fixed;
 }
 
-using graph_t = vvi;
-
-void precalc() {
-
-}
-
-void solve_test() {
-
-}
-
 void solve() {
+
 }
 
 signed main() {
     init_io();
-
-    #ifdef STRESS
-
-    stress();
-
-    #else
-
-    precalc();
-
-	int tests =
-	#ifdef LOCAL
-		ri();
-	#else
-		1;
-	#endif
-
-	while (tests --> 0) {
-		solve();
-	}
-	#endif
-
+	solve();
     return 0;
 }
