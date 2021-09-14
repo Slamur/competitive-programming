@@ -11,7 +11,9 @@ import java.util.StringTokenizer;
 public class __Solution {
 
     private void solve() {
-
+        int a = readInt();
+        int b = readInt();
+        out.println(a + b);
     }
 
     //////////////////////////////////////////////////////////////////

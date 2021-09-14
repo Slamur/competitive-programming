@@ -143,7 +143,9 @@ void init_io() {
 }
 
 void solve() {
-
+    int a = ri();
+    int b = ri();
+    print(a + b);
 }
 
 signed main() {

@@ -60,7 +60,9 @@ def yes_no(value, yes="YES", no="NO"):
 
 
 def solve():
-    pass
+    a, b = read_ints()
+    print(a + b)
+
 
 def main():
     solve()
