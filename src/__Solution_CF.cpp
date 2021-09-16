@@ -385,7 +385,6 @@ void init_io() {
 }
 
 using graph_t = vvi;
-using ans_t = ll;
 
 void precalc() {
 
