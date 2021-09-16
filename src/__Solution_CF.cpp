@@ -343,7 +343,7 @@ void init_io() {
     string fn = "";
     string in_fn = "", out_fn = "";
 
-    string basic_files_directory = "../../";
+    string basic_files_directory = "../";
 
 
     #ifndef ONLINE_JUDGE
