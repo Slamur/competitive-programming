@@ -1,15 +1,28 @@
-import java.awt.*;
-import java.io.*;
+import java.awt.Point;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
+import java.util.Random;
+import java.util.StringTokenizer;
 
 import static java.lang.Math.max;
 import static java.lang.Math.min;
 
 
-public class __Solution_CF implements Runnable{
+public class E implements Runnable{
 
     // SOLUTION AT THE TOP OF CODE!!!
     // HACK ME PLEASE IF YOU CAN!!!
@@ -21,11 +34,51 @@ public class __Solution_CF implements Runnable{
     private final static Random rnd = new Random();
     private final static String fileName = "";
 
-    private final static long MODULO = 1000 * 1000 * 1000 + 7;
+    private final static int MODULO = 1000 * 1000 * 1000 + 7;
 
     // THERE SOLUTION STARTS!!!
     private void solve() {
+        int d = readInt();
+        int x = readInt();
+        int y = readInt();
 
+        int answer = getAnswer(d, x, y);
+        out.println(answer);
+    }
+
+    private static int getAnswer(int d, int x, int y) {
+        /*
+            (d, 0) - (0, d) -> x + y = d
+         */
+        if (x >= 0 && y >= 0 && x + y <= d) return 0;
+
+        /*
+            x^2 + y^2 <= (x - d)^2 + y^2
+            x^2 + y^2 <= x^2 + (y - d)^2
+
+            0 <= d^2 - 2dx
+            0 <= d^2 - 2dy
+
+            d > 0
+
+            2x <= d
+            2y <= d
+
+            2 * max(x, y) <= d
+         */
+        if (2 * Math.max(x, y) <= d) return 1;
+
+        /*
+            (d, 0) and (0, d) are symmetrical around x = y
+            x >= y -> (d, 0)
+            x <= y -> (0, d)
+
+            proof:
+            (x - d)^2 + y^2 <= (y - d)^2 + x^2
+            -2dx <= -2dy
+            x >= y
+         */
+        return x >= y ? 2 : 3;
     }
 
     /////////////////////////////////////////////////////////////////////
@@ -41,11 +94,11 @@ public class __Solution_CF implements Runnable{
     /////////////////////////////////////////////////////////////////////
 
     @SuppressWarnings("unused")
-    private static long inverse(long x) {
+    private static int inverse(long x) {
         return binpow(x, MODULO - 2);
     }
 
-    private static long binpow(long base, long power) {
+    private static int binpow(long base, long power) {
         if (power == 0) return 1;
         if ((power & 1) == 0) {
             long half = binpow(base, power >> 1);
@@ -56,18 +109,19 @@ public class __Solution_CF implements Runnable{
         }
     }
 
-    private static long add(long a, long b) { return (a + b) % MODULO; }
+    private static int add(int a, int b) { return (a + b) % MODULO; }
 
     @SuppressWarnings("unused")
-    private static long subtract(long a, long b) { return add(a, MODULO - b % MODULO); }
+    private static int subtract(int a, int b) { return add(a, MODULO - b % MODULO); }
 
-    private static long mult(long a, long b) { return (a * b) % MODULO; }
+    private static int mult(long a, long b) { return (int)((a * b) % MODULO); }
 
     /////////////////////////////////////////////////////////////////////
 
     @SuppressWarnings("unused")
-    void yesNo(boolean yes) {
+    boolean yesNo(boolean yes) {
         out.println(yes ? "YES" : "NO");
+        return yes;
     }
 
     /////////////////////////////////////////////////////////////////////
@@ -111,7 +165,7 @@ public class __Solution_CF implements Runnable{
     private StringTokenizer tok = new StringTokenizer("");
 
     public static void main(String[] args){
-        new Thread(null, new __Solution_CF(), "", MAX_STACK_SIZE * (1L << 20)).start();
+        new Thread(null, new E(), "", MAX_STACK_SIZE * (1L << 20)).start();
     }
 
     /////////////////////////////////////////////////////////////////////
@@ -222,10 +276,12 @@ public class __Solution_CF implements Runnable{
         boolean started = false;
         while (true) {
             try {
+                in.mark(20);
                 int j = in.read();
-                if (-1 == j) {
+                if (-1 == j || '\r' == j || '\n' == j || ' ' == j) {
                     if (started) return sign * result;
-                    throw new NumberFormatException();
+                    if (-1 == j) throw new NumberFormatException();
+                    continue;
                 }
 
                 if (j == '-') {
@@ -236,8 +292,13 @@ public class __Solution_CF implements Runnable{
                 if ('0' <= j && j <= '9') {
                     result = result * 10 + j - '0';
                     started = true;
-                } else if (started) {
-                    return sign * result;
+                } else {
+                    in.reset();
+                    if (started) {
+                        return sign * result;
+                    } else {
+                        throw new NumberFormatException();
+                    }
                 }
             } catch (IOException e) {
                 throw new RuntimeIOException(e);
@@ -515,35 +576,33 @@ public class __Solution_CF implements Runnable{
     private static class IntIndexPair {
 
         @SuppressWarnings("unused")
-        static Comparator<IntIndexPair> increaseComparator = new Comparator<IntIndexPair>() {
-            @Override
-            public int compare(IntIndexPair indexPair1, IntIndexPair indexPair2) {
-                int value1 = indexPair1.value;
-                int value2 = indexPair2.value;
+        static Comparator<IntIndexPair> increaseComparator = (indexPair1, indexPair2) -> {
+            int value1 = indexPair1.value;
+            int value2 = indexPair2.value;
 
-                if (value1 != value2) return value1 - value2;
-
-                int index1 = indexPair1.index;
-                int index2 = indexPair2.index;
-
-                return index1 - index2;
+            if (value1 != value2) {
+                return value1 - value2;
             }
+
+            int index1 = indexPair1.index;
+            int index2 = indexPair2.index;
+
+            return index1 - index2;
         };
 
         @SuppressWarnings("unused")
-        static Comparator<IntIndexPair> decreaseComparator = new Comparator<IntIndexPair>() {
-            @Override
-            public int compare(IntIndexPair indexPair1, IntIndexPair indexPair2) {
-                int value1 = indexPair1.value;
-                int value2 = indexPair2.value;
+        static Comparator<IntIndexPair> decreaseComparator = (indexPair1, indexPair2) -> {
+            int value1 = indexPair1.value;
+            int value2 = indexPair2.value;
 
-                if (value1 != value2) return -(value1 - value2);
-
-                int index1 = indexPair1.index;
-                int index2 = indexPair2.index;
-
-                return index1 - index2;
+            if (value1 != value2) {
+                return -(value1 - value2);
             }
+
+            int index1 = indexPair1.index;
+            int index2 = indexPair2.index;
+
+            return index1 - index2;
         };
 
         @SuppressWarnings("unused")

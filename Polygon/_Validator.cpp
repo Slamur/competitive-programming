@@ -29,24 +29,28 @@ vi read_ints(int size, int min_value, int max_value, string const& name) {
     return result;
 };
 
+template <typename T, typename L>
+void ensure_limits(const string& name, T& value, L& min_value, L& max_value) {
+    ensuref(
+        min_value <= value && value <= max_value,
+        "Expected %s in [%d, %d], but found %d",
+        name.c_str(), min_value, max_value, value
+    );
+}
+
 int main(int argc, char* argv[])
 {
 	registerValidation(argc, argv);
 
-    struct data { int maxN, maxC; };
+    const int MAX_N = 16;
+    const int MAX_MK = 1'000'000'000;
+    const int MAX_A = 1'000'000'000;
 
-    constexpr data groups[] = {
-        { 500, 500 },
-        { 300'000, 300'000 },
-        { 300'000, 1000'000'000 },
-    };
+    int n = read_int(1, MAX_N, "n", SPACE_SEP);
+    int m = read_int(1, MAX_MK, "m", SPACE_SEP);
+    int k = read_int(1, MAX_MK, "k");
 
-    auto const& group = groups[map<string, int>{ { "2", 1 }, { "3", 2 } }[validator.group()]];
-
-    int n = read_int(1, group.maxN, "n", SPACE_SEP);
-    int k = read_int(1, n, "k");
-
-    read_ints(n, 0, group.maxC, "c");
+    read_ints(n, 1, MAX_A, "a");
 
     inf.readEof();
 

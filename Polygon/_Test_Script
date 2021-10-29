@@ -1,4 +1,24 @@
-<#assign gen = "SM_Sertificates_Generator_Random"/>
+<#function gen_name type>
+    <#return "gen_" + type>
+</#function>
+
+<#function gen_anti versus type>
+    <#return gen_name("anti_" + versus + "_" + type)>
+</#function>
+
+<#assign gen_rand = gen_name("random")/>
+
+<#function div a b>
+    <#return (a / b)?int>
+</#function>
+
+<#function min a b>
+    <#return [a, b]?sort?first>
+</#function>
+
+<#function max a b>
+    <#return [a, b]?sort?last>
+</#function>
 
 <#assign minN = 1/>
 <#assign maxN = 10/>
@@ -8,7 +28,7 @@
 
 <#list minN..maxN as n>
     <#list [1000, 10000] as seed>
-        ${gen} ${seed + n} ${n} ${n} ${minMK} ${maxMK} ${minMK} ${maxMK} > $
+        ${gen_rand} ${seed + n} ${n} ${n} ${minMK} ${maxMK} ${minMK} ${maxMK} > $
     </#list>
 </#list>
 
@@ -21,7 +41,7 @@
     <#assign minN = (maxN * minNCoeff / 10)?int/>
     <#list 1..5 as it>
         <#list [2000, 20000] as seed>
-            ${gen} ${seed + it * minNCoeff} ${minN} ${maxN} ${minMK} ${maxMK} ${minMK} ${maxMK} > $
+            ${gen_rand} ${seed + it * minNCoeff} ${minN} ${maxN} ${minMK} ${maxMK} ${minMK} ${maxMK} > $
         </#list>
     </#list>
 </#list>
@@ -37,7 +57,7 @@ ${gen} 100500 ${maxN} ${maxN} ${minMK} ${maxMK} ${minMK} ${maxMK} > $
     <#assign minN = (maxN * minNCoeff / 10)?int/>
     <#list 1..5 as it>
         <#list [3000, 30000] as seed>
-            ${gen} ${seed + it * minNCoeff} ${minN} ${maxN} ${minMK} ${maxMK} ${minMK} ${maxMK} > $
+            ${gen_rand} ${seed + it * minNCoeff} ${minN} ${maxN} ${minMK} ${maxMK} ${minMK} ${maxMK} > $
         </#list>
     </#list>
 </#list>

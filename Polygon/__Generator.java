@@ -195,8 +195,38 @@ public class __Generator {
         return array;
     }
 
+    private static int[] increaseAll(int[] a) {
+        return Arrays.stream(a).map(v -> v + 1).toArray();
+    }
+
     private static int[] nextPermutation(int size) {
         return castInt(shuffled(order(size)));
+    }
+
+    private static int[] generatePermutation(int size, int permutationIndex) {
+        boolean[] used = new boolean[size];
+        int[] facts = new int[size];
+        facts[0] = 1;
+        for (int i = 1; i < size; ++i) facts[i] = facts[i - 1] * i;
+
+        int[] permutation = new int[size];
+        for (int i = 0; i < size; ++i) {
+            int fact = facts[size - i - 1];
+
+            for (int j = 0; j < size; ++j) {
+                if (used[j]) continue;
+
+                if (permutationIndex < fact) {
+                    permutation[i] = j;
+                    used[j] = true;
+                    break;
+                } else {
+                    permutationIndex -= fact;
+                }
+            }
+        }
+
+        return permutation;
     }
 
     interface GeneratorType {
@@ -236,9 +266,7 @@ public class __Generator {
 
         if (containsMask(type, OrderType.REVERSE)) {
             for (int i = 0, j = array.length - 1; i < j; ++i, --j) {
-                int tmp = array[i];
-                array[i] = array[j];
-                array[j] = tmp;
+                swap(array, i, j);
             }
         }
 
@@ -258,10 +286,14 @@ public class __Generator {
             int first = rnd.nextInt(array.length);
             int second = rnd.nextInt(array.length);
 
-            int tmp = array[first];
-            array[first] = array[second];
-            array[second] = tmp;
+            swap(array, first, second);
         }
+    }
+
+    private static void swap(int[] array, int first, int second) {
+        int tmp = array[first];
+        array[first] = array[second];
+        array[second] = tmp;
     }
 
     private static class PersistentSegmentTree {

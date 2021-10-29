@@ -2,7 +2,7 @@ import java.awt.Point;
 import java.io.*;
 import java.util.*;
 
-public class __Solution {
+public class __Solution_Java {
 
     public static void main(String[] args) {
         new Solution().run();
@@ -88,6 +88,20 @@ public class __Solution {
     }
 
     static class Utils {
+        static int lowerBound(int[] array, int value) {
+            int left = -1, right = array.length;
+            while (right - left > 1) {
+                int mid = (left + right) / 2;
+                if (array[mid] >= value) right = mid;
+                else left = mid;
+            }
+            return right;
+        }
+
+        static int upperBound(int[] array, int value) {
+            return lowerBound(array, value + 1);
+        }
+
         static List<Integer> order(int size) {
             List<Integer> order = new ArrayList<>();
             for (int i = 0; i < size; ++i) order.add(i);
@@ -254,6 +268,8 @@ public class __Solution {
         SolutionWriter println();
 
         SolutionWriter print(String line);
+
+        default SolutionWriter print(char character) { return print("" + character); }
         default SolutionWriter printSpace() {
             return print(" ");
         }
@@ -285,6 +301,13 @@ public class __Solution {
 
         default SolutionWriter printAllSeparated(int... values) {
             for (int value : values) {
+                print(value).println();
+            }
+            return this;
+        }
+
+        default SolutionWriter printAllSeparated(long... values) {
+            for (long value : values) {
                 print(value).println();
             }
             return this;
