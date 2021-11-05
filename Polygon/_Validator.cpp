@@ -1,12 +1,10 @@
 #include "testlib.h"
-#include <vector>
-#include <utility>
-#include <cmath>
-#include <set>
+#include <bits/stdc++.h>
+
 using namespace std;
 
-typedef long long ll;
-typedef vector<int> vi;
+using ll = int64_t;
+using vi = vector<int>;
 
 const bool SPACE_SEP = false, EOLN_SEP = true;
 
