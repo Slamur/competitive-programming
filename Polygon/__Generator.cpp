@@ -1,7 +1,5 @@
 #include "testlib.h"
-#include <iostream>
-#include <cstdio>
-#include <cassert>
+#include <bits/stdc++.h>
 
 using namespace std;
 
