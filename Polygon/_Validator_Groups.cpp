@@ -5,8 +5,8 @@
 #include <vector>
 using namespace std;
 
-typedef long long ll;
-typedef vector<int> vi;
+using ll = long long;
+using vi = vector<int>;
 
 const bool SPACE_SEP = false, EOLN_SEP = true;
 
@@ -28,6 +28,15 @@ vi read_ints(int size, int min_value, int max_value, string const& name) {
     inf.readEoln();
     return result;
 };
+
+template <typename T, typename L>
+void ensure_limits(const string& name, T& value, L& min_value, L& max_value) {
+    ensuref(
+        min_value <= value && value <= max_value,
+        "Expected %s in [%d, %d], but found %d",
+        name.c_str(), min_value, max_value, value
+    );
+}
 
 const int MAX_N = 300'000, maxT = 1'000'000'000;
 

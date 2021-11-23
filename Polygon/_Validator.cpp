@@ -5,8 +5,8 @@
 #include <set>
 using namespace std;
 
-typedef long long ll;
-typedef vector<int> vi;
+using ll = long long;
+using vi = vector<int>;
 
 const bool SPACE_SEP = false, EOLN_SEP = true;
 
