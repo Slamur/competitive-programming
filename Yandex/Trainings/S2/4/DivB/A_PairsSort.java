@@ -9,7 +9,7 @@ import static java.lang.Math.max;
 import static java.lang.Math.min;
 
 
-public class __Solution_CF implements Runnable{ //
+public class A_PairsSort implements Runnable{
 
     // SOLUTION AT THE TOP OF CODE!!!
     // HACK ME PLEASE IF YOU CAN!!!
