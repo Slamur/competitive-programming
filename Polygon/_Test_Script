@@ -28,6 +28,14 @@
     <#return res>
 </#function>
 
+<#function fact n>
+    <#assign res = 1/>
+    <#list 1..n as it>
+        <#assign res = res * it/>
+    </#list>
+    <#return res>
+</#function>
+
 <#assign minN = 1/>
 <#assign maxN = 10/>
 
