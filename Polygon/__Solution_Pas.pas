@@ -5,7 +5,7 @@ end;
 var
   tests, t: LongInt;
 begin
-  read(tests);
+  Read(tests);
   for t := 1 to tests do begin
     SolveTest();
   end;
