@@ -3,7 +3,7 @@ begin
 end;
 
 var
-  tests, t: longint;
+  tests, t: LongInt;
 begin
   read(tests);
   for t := 1 to tests do begin
