@@ -1,19 +1,28 @@
-<#assign problem_name = "MainLetters"/>
-
-<#function gen_name type>
-    <#return "SM_" + problem_name + "_Generator_" + type>
+<#function gen_name variables type>
+    <#return "gen_" + variables + "_" + type>
 </#function>
 
-<#assign gen = gen_name("Random")/>
-<#assign gen_perm = gen_name("Permutation")/>
-<#assign gen_sorted = gen_name("AboutSorted")/>
-<#assign gen_waved = gen_name("AboutWaved")/>
-
-<#assign minNs = [1, 1, 4, 11, 101, 1001]/>
-<#assign maxNs = [10, 3, 10, 100, 1000, 100 * 1000]/>
+<#assign gen_t_random = gen_name("t", "random")/>
+<#assign gen_nd_random = gen_name("nd", "random")/>
 
 <#function div a b>
     <#return (a / b)?int>
+</#function>
+
+<#function min a b>
+    <#return [a, b]?sort?first>
+</#function>
+
+<#function max a b>
+    <#return [a, b]?sort?last>
+</#function>
+
+<#function pow base power>
+    <#assign res = 1/>
+    <#list 1..power as it>
+        <#assign res = res * base/>
+    </#list>
+    <#return res>
 </#function>
 
 <#function fact n>
@@ -24,109 +33,56 @@
     <#return res>
 </#function>
 
-<#macro script0 seed minN maxN>
+<#macro script0 seed maxN maxT>
 </#macro>
 
-<#macro script1 seed minN maxN>
-    <#assign total = 9/>
-    <#assign manual = 3/>
-
-    <#assign n = 3/>
-    <#assign permsCount = fact(n)/>
-    <#list 1..permsCount as permIndex>
-        ${gen_perm} ${seed + permIndex} ${n} ${permIndex} > $
-    </#list>
-</#macro>
-
-<#macro script2 seed minN maxN>
-    <#assign total = 21/>
+<#macro script1 seed maxN maxT>
+    <#assign total = 5/>
     <#assign used = 0/>
 
-    <#assign manual = 3/>
+    <#assign manual = 1/>
     <#assign used = used + manual/>
 
-    <#list minN..maxN as n>
-        ${gen_sorted} ${seed + used} ${n} ${n} 0 3 > $
-        ${gen_waved} ${seed + used + 1} ${n} ${n} 0 3 > $
-        <#assign used = used + 2/>
-    </#list>
-
     <#list used..(total - 1) as it>
-        ${gen} ${seed + it} ${minN} ${maxN} > $
+        ${gen_t_random} ${seed + it} --minT=1 --maxT=${maxT} | ${gen_nd_random} ${seed + it} --minN=1 --maxN=${maxN} > $
     </#list>
 </#macro>
 
-<#macro script3 seed minN maxN>
-    <#assign total = 15/>
+<#macro script2 seed maxN maxT>
+    <#assign total = 10/>
     <#assign used = 0/>
 
     <#assign manual = 0/>
     <#assign used = used + manual/>
 
-    <#assign sortedCount = 5/>
+    ${gen_t_random} ${seed + used} --minT=${maxT} --maxT=${maxT} | ${gen_nd_random} ${seed + used} --minN=1 --maxN=${maxN} > $
+    <#assign used = used + 1/>
 
-    <#list 0..(sortedCount - 1) as it>
-        <#assign n = maxN - it/>
-        ${gen_sorted} ${seed + used} ${n} ${n} 0 10 > $
-        ${gen_waved} ${seed + used + 1} ${n} ${n} 0 10 > $
-        <#assign used = used + 2/>
-    </#list>
+    ${gen_t_random} ${seed + used} --minT=1 --maxT=${maxT} | ${gen_nd_random} ${seed + used} --minN=${maxN} --maxN=${maxN} > $
+    <#assign used = used + 1/>
 
-    <#list used..(total - 1) as it>
-        ${gen} ${seed + it} ${minN} ${maxN} > $
-    </#list>
-</#macro>
-
-<#macro script4 seed minN maxN>
-    <#assign total = 15/>
-    <#assign used = 0/>
-
-    <#assign manual = 0/>
-    <#assign used = used + manual/>
-
-    <#assign sortedCount = 5/>
-
-    <#list 0..(sortedCount - 1) as it>
-        <#assign n = maxN - it/>
-        ${gen_sorted} ${seed + used} ${n} ${n} 0 30 > $
-        ${gen_waved} ${seed + used + 1} ${n} ${n} 0 30 > $
-        <#assign used = used + 2/>
-    </#list>
+    ${gen_t_random} ${seed + used} --minT=${maxT} --maxT=${maxT} | ${gen_nd_random} ${seed + used} --minN=${maxN} --maxN=${maxN} > $
+    <#assign used = used + 1/>
 
     <#list used..(total - 1) as it>
-        ${gen} ${seed + it} ${minN} ${maxN} > $
+        ${gen_t_random} ${seed + it} --minT=1 --maxT=${maxT} | ${gen_nd_random} ${seed + it} --minN=1 --maxN=${maxN} > $
     </#list>
 </#macro>
 
-<#macro script5 seed minN maxN >
-    <#assign total = 20/>
-    <#assign used = 0/>
+<#assign scripts = [script0, script1, script2]/>
 
-    <#assign manual = 0/>
-    <#assign used = used + manual/>
+<#assign maxNTotal = pow(10, 6)/>
+<#assign maxTTotal = pow(10, 3)/>
 
-    <#assign sortedCount = 10/>
-
-    <#list 0..(sortedCount - 1) as it>
-        <#assign n = maxN - it/>
-        ${gen_sorted} ${seed + used} ${n} ${n} 0 100 > $
-        ${gen_waved} ${seed + used + 1} ${n} ${n} 0 100 > $
-        <#assign used = used + 2/>
-    </#list>
-
-    <#assign random = 10/>
-    <#list 0..(random - 1) as it>
-        ${gen} ${seed + it} ${maxN - it} ${maxN} > $
-    </#list>
-</#macro>
-
-<#assign scripts = [script0, script1, script2, script3, script4, script5]/>
+<#assign maxNs = [0, 10, maxNTotal]/>
+<#assign maxTs = [0, 100, maxTTotal]/>
 
 <#assign groupsCount = maxNs?size/>
 
 <#list 0..(groupsCount - 1) as group>
     <#assign script = scripts[group]/>
     <@script seed = group * 1000
-             minN = minNs[group]
-             maxN = maxNs[group]/>
+             maxN = maxNs[group]
+             maxT = maxTs[group]
+    />
 </#list>

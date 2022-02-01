@@ -5,8 +5,8 @@
 #include <vector>
 using namespace std;
 
-typedef long long ll;
-typedef vector<int> vi;
+using ll = long long;
+using vi = vector<int>;
 
 const bool SPACE_SEP = false, EOLN_SEP = true;
 
@@ -28,6 +28,15 @@ vi read_ints(int size, int min_value, int max_value, string const& name) {
     inf.readEoln();
     return result;
 };
+
+template <typename T, typename L>
+void ensure_limits(const string& name, const T& value, const L& min_value, const L& max_value) {
+    ensuref(
+        min_value <= value && value <= max_value,
+        "Expected %s in [%d, %d], but found %d",
+        name.c_str(), min_value, max_value, value
+    );
+}
 
 const int MAX_N = 300'000, maxT = 1'000'000'000;
 
@@ -51,7 +60,7 @@ int main(int argc, char* argv[])
 {
 	registerValidation(argc, argv);
 
-    group_data groups[] = {
+    vector<group_data> groups = {
         group_data(10),// sample
         group_data(3, 3, 1, 1), // k = 1, n = 3
         group_data(3, 3, 2, 3), // k > 1, n = 3
@@ -63,7 +72,7 @@ int main(int argc, char* argv[])
         group_data(3001, MAX_N) // n <= 3e5
     };
 
-    int group_index = (validator.group() != "") ? stoi(validator.group()) : 9;
+    int group_index = (validator.group() != "") ? stoi(validator.group()) : groups.size() - 1;
     auto const& group = groups[group_index];
 
     int n = read_int(group.minN, group.maxN, "n", SPACE_SEP);

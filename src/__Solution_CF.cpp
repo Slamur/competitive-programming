@@ -31,16 +31,16 @@ ll add(ll target, ll add) {
     return result;
 }
 
-inline ll negate(ll x) {
-    return MODULO - x % MODULO
+inline ll negate_mod(ll x) {
+    return MODULO - x % MODULO;
 }
 
 void resub(ll& target, ll sub) {
-    readd(target, negate(sub));
+    readd(target, negate_mod(sub));
 }
 
 ll sub(ll target, ll sub){
-	return add(a, negate(sub));
+	return add(target, negate_mod(sub));
 }
 
 void remult(ll& target, ll mult) {
@@ -343,7 +343,7 @@ void init_io() {
     string fn = "";
     string in_fn = "", out_fn = "";
 
-    string basic_files_directory = "../../";
+    string basic_files_directory = "../";
 
 
     #ifndef ONLINE_JUDGE
@@ -385,7 +385,6 @@ void init_io() {
 }
 
 using graph_t = vvi;
-using ans_t = ll;
 
 void precalc() {
 

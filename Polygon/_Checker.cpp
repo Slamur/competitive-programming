@@ -103,16 +103,22 @@ void indexes_strictly_sorted_check(vi & indexes, CheckInfo & info) {
 }
 
 struct Input {
-    int n;
-    vi costs;
 
-    Input(int _n, vi _costs)
-    : n(_n)
-    , costs(_costs)
+    Input()
     { }
 };
 
-typedef ll answer_t;
+Input read_input() {
+    /*
+    int n = inf.readInt();
+
+    vi costs;
+    read_ints(costs, n, inf);
+    */
+    return Input();
+}
+
+using answer_t = ll;
 
 answer_t read_answer(Input & input, InStream & stream, CheckInfo & info)
 {
@@ -148,12 +154,7 @@ int main(int argc, char * argv[])
 {
     registerTestlibCmd(argc, argv);
 
-    int n = inf.readInt();
-
-    vi costs;
-    read_ints(costs, n, inf);
-
-    Input input(n, costs);
+    Input input = read_input();
 
     CheckInfo jury(_fail, JURY);
     CheckInfo participant(_wa, PARTICIPANT);

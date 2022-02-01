@@ -91,13 +91,6 @@ void compress(vector<T>& values) {
 	values.erase(unique(values.begin(), values.end()), values.end());
 }
 
-template<typename T, typename D>
-void increase(vector<T>& values, D delta) {
-    for (T& value : values) {
-        value += delta;
-    }
-}
-
 template<typename T>
 void print(T x) {
 	cout << x << ENDL;
