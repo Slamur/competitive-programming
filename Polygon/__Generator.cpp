@@ -1,7 +1,5 @@
 #include "testlib.h"
-#include <iostream>
-#include <cstdio>
-#include <cassert>
+#include <bits/stdc++.h>
 
 using namespace std;
 
@@ -57,19 +55,16 @@ bool check_cell(int x, int n, int y, int m) {
     return check_index(x, n) && check_index(y, m);
 }
 
-void gen_test(int n, int a, int b) {
-    cout << n << " " << a << " " << b << endl;
-    string s = "";
-    for (int i = 0; i < n; i++) {
-        s += rnd.next(0, 1) == 0 ? "S" : "B";
-    }
-    cout << s << endl;
-}
-
 int main(int argc, char **argv) {
     registerGen(argc, argv, 1);
-    int n = opt<int>("n");
-    int a = opt<int>("a");
-    int b = opt<int>("b");
-    gen_test(n, a, b);
+    int minN = opt<int>("minN");
+    int maxN = opt<int>("maxN");
+
+    auto gen_test = [&]() {
+  	int n = rnd.next(minN, maxN);
+
+	cout << n << ENDL;	
+    };
+
+    gen_test();
 }
