@@ -30,6 +30,13 @@ string rs() {
     return read<string>();
 }
 
+template <typename T>
+vector<T> rv(int size) {
+	vector<T> values(size);
+	for (auto& value : values) value = read<T>();
+	return values;
+}
+
 const char ENDL = '\n';
 
 template <typename T>
