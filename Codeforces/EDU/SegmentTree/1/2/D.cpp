@@ -73,11 +73,11 @@ private:
 	int need;
 	void find_tree_seg(int v, int left, int right) {
 		if (start <= left && right <= end) {
-			if (tree[v_res] != no_ans) return;
+			if (index != no_ans) return;
 			
 			int ans = find_tree(v, left, right);
 			if (ans != no_ans) {
-				set_vertex(v_res, ans);
+				index = ans;
 			}
 		} else {
 			int mid = (left + right) / 2;
@@ -87,7 +87,7 @@ private:
 		}
 	}
 	
-	T find_tree(int v, int left, int right) {
+	int find_tree(int v, int left, int right) {
 		if (tree[v] < need) return no_ans;
 		
 		if (left + 1 == right) {
@@ -128,10 +128,10 @@ public:
 		start = _start;
 		end = _end + 1;
 		
-		set_vertex(v_res, no_ans);
+		index = no_ans;
 		find_tree_seg(1, 0, size);
 		
-		return tree[v_res];
+		return index;
 	}
 };
 
