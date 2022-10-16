@@ -1,4 +1,4 @@
-## Qualification contest to ICPC Central Russia Regional Contest (CRRC 19)
+## Qualification contest to ICPC 2019 Central Russia Regional Contest
 
 ## [Link to Codeforces](https://codeforces.com/gym/102777)
 
