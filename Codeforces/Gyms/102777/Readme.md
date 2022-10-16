@@ -2,4 +2,4 @@
 
 ## [Link to Codeforces](https://codeforces.com/gym/102777)
 
-## [My editorial](https://drive.google.com/file/d/1cknT4hNwOhucsKzEjnzcBnOOw7Hk-62d/)
+## [My editorial](https://drive.google.com/file/d/1RDwgVwHh_uIB5mVQhF6-3rTyO0GSZ9T3/)
