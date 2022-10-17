@@ -1,4 +1,4 @@
-## Qualification contest to ICPC 2022 Kyrgyzstan Regional Contest
+## ICPC 2022 Kyrgyzstan Qualification Contest
 
 ## [Link to KRSU](https://olymp.krsu.edu.kg/ContestProblemset.aspx?contest=786)
 
