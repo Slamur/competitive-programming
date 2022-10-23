@@ -1,14 +1,15 @@
-import sys
+import math
 import os.path
+import sys
 
-input_file_name = 'input.txt'
-output_file_name = 'output.txt'
+from typing import List
+
+filename = ''
+input_file_name = filename + '.in'
+output_file_name = filename + '.out'
 
 if not os.path.isfile(input_file_name):
     input_file_name = ''
-
-if not os.path.isfile(output_file_name):
-    output_file_name = ''
 
 if len(input_file_name) > 0:
     with open(input_file_name, 'r') as file:
@@ -29,16 +30,12 @@ def input():
     return fast_input_reader.__next__()
 
 
+def read_ints():
+    return map(int, input().split())
+
+
 def read_int():
     return int(input())
-
-
-def read_strings():
-    return input().split()
-
-
-def read_ints():
-    return map(int, read_strings())
 
 
 output_lines = [[]]
@@ -53,12 +50,7 @@ def print(output, sep=ENDL):
     if ENDL == sep:
         output_lines.append([])
 
-
-def yes_no(value, yes="YES", no="NO"):
-    print(yes if value else no)
-    return value
-
-
+        
 def solve():
     a, b = read_ints()
     print(a + b)
@@ -73,9 +65,9 @@ def main():
         in output_lines
     ) + ENDL
 
-    if len(output_file_name) > 0:
-        with open(output_file_name, 'w') as file:
-            file.write(output)
+    if len(input_file_name) > 0 and len(output_file_name) > 0:
+        with open(output_file_name, 'w') as output_file:
+            output_file.write(output)
     else:
         sys.stdout.write(output)
 
