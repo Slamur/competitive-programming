@@ -8,7 +8,7 @@ using vi = vector<int>;
 
 const int EOLN_SEP = 0, SPACE_SEP = 1;
 
-int read_int(int min_value, int max_value, string const& name, bool separator = EOLN_SEP) {
+int read_int(int min_value, int max_value, string const& name, int separator = EOLN_SEP) {
     int result = inf.readInt(min_value, max_value, name);
 
     if (EOLN_SEP == separator) inf.readEoln();
