@@ -22,7 +22,7 @@ const string OR = "||", AND = "&&";
 
 vector<string> split(const string& line) {
 	vector<string> tokens;
-	string token = " ";
+	string token = "";
 	
 	auto add_token = [&]() {
 		if (token.size() > 0) {
