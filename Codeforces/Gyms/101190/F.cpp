@@ -34,32 +34,22 @@ void solve() {
 		a.push_back(v);
 	}
 	
-	vector<vi> prefs(2, vi(n + 1, 0));
-	vector<vll> sum_prefs(2, vll(n + 1, 0));
+	vector<vll> prefs(2, vll(n + 1, 0));
 	
 	for (int i = 1; i <= n; ++i) {
 		for (int t = 0; t < types.size(); ++t) {
 			prefs[t][i] = prefs[t][i - 1];
 		}
 		
-		prefs[a[i]][i]++;
-		
-		for (int t = 0; t < types.size(); ++t) {
-			sum_prefs[t][i] = sum_prefs[t][i - 1] + prefs[t][i];
-		}
+		prefs[a[i]][i] += i;
 	}
 	
 	vector<long double> dp(n + 1, 0.0);
-	vector<long double> pref_dp_minus_i(n + 1, 0.0);
+	vector<long double> pref_dp(n + 1, 0.0);
 	for (int i = 1; i <= n; ++i) {
-		dp[i] = pref_dp_minus_i[i - 1];
-		dp[i] += sum_prefs[a[i]][i - 1];
+		dp[i] = pref_dp[i - 1] + prefs[1 - a[i]][i - 1];
 		dp[i] /= i;
-		
-		dp[i] += (i - prefs[a[i]][i]);
-		
-		pref_dp_minus_i[i] += pref_dp_minus_i[i - 1];
-		pref_dp_minus_i[i] += dp[i] - i;
+		pref_dp[i] = pref_dp[i - 1] + dp[i];
 	}
 	
 	cout << dp[n] << endl;
