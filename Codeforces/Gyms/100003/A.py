@@ -22,37 +22,16 @@ def get_ans():
     max_seat_in_row = l // x
 
     max_passes = w // a
-    for k in range(1, max_passes + 1):
-        max_seat_rows = (w - k * a) // y
+    for passes in range(1, max_passes + 1):
+        max_seat_rows = (w - passes * a) // y
 
         if n > max_seat_rows * max_seat_in_row:
             continue
 
-        res = 0
-        free_seats = n
-        free_rows = max_seat_rows
+        max_rows_near_passes = min(max_seat_rows, 2 * passes)
+        max_seats_near_passes = min(n, max_rows_near_passes * max_seat_in_row)
 
-        # between two passes
-        inner_segments = k - 1
-        max_inner_seat_rows = min(free_rows, 2 * inner_segments)
-        free_rows -= max_inner_seat_rows
-
-        inner_seats = min(free_seats, max_inner_seat_rows * max_seat_in_row)
-        free_seats -= inner_seats
-
-        res += inner_seats
-
-        # before first and after last
-        outer_segments = 2
-        max_outer_seat_rows = min(free_rows, outer_segments)
-        free_rows -= max_outer_seat_rows
-
-        outer_seats = min(free_seats, max_outer_seat_rows * max_seat_in_row)
-        free_seats -= outer_seats
-
-        res += outer_seats
-
-        ans = max(ans, res)
+        ans = max(ans, max_seats_near_passes)
 
     return ans
 
