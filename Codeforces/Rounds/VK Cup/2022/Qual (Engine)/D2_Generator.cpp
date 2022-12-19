@@ -7,10 +7,7 @@ using vi = vector<int>;
 using ii = pair<int, int>;
 using vii = vector<ii>;
 
-int main() {
-	ios::sync_with_stdio(false);
-	cin.tie(nullptr);
-	
+void solve_test(int need_size) {	
 	string values = "6789TJQKA";
 	string modes = "CDSH";
 	
@@ -51,34 +48,54 @@ int main() {
         };
 	
 	auto get_ans = [&]() {
-		using cache_type = unordered_map<int, int>;
-		vector<cache_type> best_result(players_count);
+		vii segments(modes.size(), empty_segment);
+		vi waiting_counts(players_count, hand_size);
+	
+		using cache_type = vector<int>;
 		
-		vii segments;
-		vi waiting_counts;
+		int max_state = segments_to_state(segments) + 1;
+		int none = -100500;
+		vector<cache_type> best_result(players_count, cache_type(max_state, none));
+		
+		vector<vi> card_to_index(modes.size(), vi(values.size()));
+		for (int card_index = 0; card_index < all_cards.size(); ++card_index) {
+			auto& [value, mode] = all_cards[card_index];
+			card_to_index[mode][value + nine] = card_index;
+		}
 		
 		function<int(int)> calc_result = [&](int player) {
 	            int state = segments_to_state(segments);
-		    if (best_result[player].count(state)) {
+		    if (best_result[player][state] != none) {
 	                return best_result[player][state];
 	            }
 
-		    vii possible;
+		    vi possible;
 
-		    int start = player * hand_size, end = start + hand_size;
-		    for (int card_index = start; card_index < end; ++card_index) {
-		    	auto card = all_cards[card_index];
-		        auto [value, mode] = card;
-		        if (segments[mode] == empty_segment) {
-		            if (value == 0) {
-		                possible.push_back(card);
-		            }
-		        } else {
-		            auto [left, right] = segments[mode];
-		            if (value == left - 1 || value == right + 1) {
-		                possible.push_back(card);
-		            }
-		        }
+		    for (int mode = 0; mode < modes.size(); ++mode) {
+		    	if (segments[mode] == empty_segment) {
+		    		int nine_index = card_to_index[mode][nine];
+		    		if (nine_index / hand_size == player) {
+		    			possible.push_back(nine_index);
+		    		}
+		    	} else {
+		    		auto& [left, right] = segments[mode];
+		    		
+		    		int next_left = left - 1;
+		    		if (next_left + nine >= 0) {
+		    			int card_index = card_to_index[mode][next_left + nine];
+		    			if (card_index / hand_size == player) {
+		    				possible.push_back(card_index);
+		    			}
+		    		}
+		    		
+		    		int next_right = right + 1;
+		    		if (next_right + nine < values.size()) {
+		    			int card_index = card_to_index[mode][next_right + nine];
+		    			if (card_index / hand_size == player) {
+		    				possible.push_back(card_index);
+		    			}
+		    		}
+		    	}
 		    }
 
 		    int other_player = 1 - player;
@@ -92,10 +109,12 @@ int main() {
 		    } else {
 		        best_result[player][state] = hand_size * (player == 0 ? -1 : 1);
 
-		        for (auto [value, mode] : possible) {
+		        for (auto& card_index : possible) {
+		        	auto& [value, mode] = all_cards[card_index];
+		        
 		        	auto mode_segment = segments[mode];
 		        	
-		        	auto [left, right] = mode_segment;
+		        	auto& [left, right] = mode_segment;
 		            	segments[mode] = make_pair(
 		            		min(left, value),
 		            		max(right, value)
@@ -118,8 +137,6 @@ int main() {
 		
 		int alice = 0, bob = 1;
 
-	        segments.resize(modes.size(), empty_segment);
-	        waiting_counts.resize(players_count, hand_size);
 	        int alice_result = calc_result(alice);
 	        int bob_result = calc_result(bob);
 
@@ -136,9 +153,6 @@ int main() {
 	        
 	        return card_str;
 	};
-
-    	int need_size;
-    	cin >> need_size;
 
 	unordered_map<int, vector<vector<string>>> results_to_hands;
 
@@ -165,6 +179,28 @@ int main() {
 		}
 		cout << "\n";
 	}
+}
+
+int main() {
+	ios::sync_with_stdio(false);
+	cin.tie(nullptr);
+	
+	int need_size;
+    	cin >> need_size;
+    	
+    	using namespace std::chrono;
+    	
+    	auto start = high_resolution_clock::now();
+    	
+    	solve_test(need_size);
+    	
+    	auto stop = high_resolution_clock::now();
+    	auto duration = duration_cast<milliseconds>(stop - start);
+ 
+ 	int millis_total = duration.count();
+ 	int seconds = millis_total / 1000, millis = millis_total % 1000;
+ 	
+	cout << "Time taken: " << seconds << " sec " << millis << " ms" << endl;
 	
 	return 0;
 }
