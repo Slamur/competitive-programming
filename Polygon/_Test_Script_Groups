@@ -1,22 +1,13 @@
-<#function gen_name variables type>
-    <#return "gen_" + variables + "_" + type>
-</#function>
-
-<#assign gen_t_random = gen_name("t", "random")/>
-<#assign gen_nd_random = gen_name("nd", "random")/>
-
+<#assign rand = "gen_rand"/>
 <#function div a b>
     <#return (a / b)?int>
 </#function>
-
 <#function min a b>
     <#return [a, b]?sort?first>
 </#function>
-
 <#function max a b>
     <#return [a, b]?sort?last>
 </#function>
-
 <#function pow base power>
     <#assign res = 1/>
     <#list 1..power as it>
@@ -24,7 +15,6 @@
     </#list>
     <#return res>
 </#function>
-
 <#function fact n>
     <#assign res = 1/>
     <#list 1..n as it>
@@ -32,57 +22,24 @@
     </#list>
     <#return res>
 </#function>
-
-<#macro script0 seed maxN maxT>
+<#assign minN = 1/>
+<#assign infN = pow(10, 6)/>
+<#assign maxNs = [3, 100, pow(10, 4), infN]/>
+<#macro script0 group>
+    <#assign desc = "samples"/>
 </#macro>
-
-<#macro script1 seed maxN maxT>
-    <#assign total = 5/>
-    <#assign used = 0/>
-
-    <#assign manual = 1/>
-    <#assign used = used + manual/>
-
-    <#list used..(total - 1) as it>
-        ${gen_t_random} ${seed + it} --minT=1 --maxT=${maxT} | ${gen_nd_random} ${seed + it} --minN=1 --maxN=${maxN} > $
-    </#list>
+<#macro script1 group>
+    <#assign desc = "n <= 100"/>
 </#macro>
-
-<#macro script2 seed maxN maxT>
-    <#assign total = 10/>
-    <#assign used = 0/>
-
-    <#assign manual = 0/>
-    <#assign used = used + manual/>
-
-    ${gen_t_random} ${seed + used} --minT=${maxT} --maxT=${maxT} | ${gen_nd_random} ${seed + used} --minN=1 --maxN=${maxN} > $
-    <#assign used = used + 1/>
-
-    ${gen_t_random} ${seed + used} --minT=1 --maxT=${maxT} | ${gen_nd_random} ${seed + used} --minN=${maxN} --maxN=${maxN} > $
-    <#assign used = used + 1/>
-
-    ${gen_t_random} ${seed + used} --minT=${maxT} --maxT=${maxT} | ${gen_nd_random} ${seed + used} --minN=${maxN} --maxN=${maxN} > $
-    <#assign used = used + 1/>
-
-    <#list used..(total - 1) as it>
-        ${gen_t_random} ${seed + it} --minT=1 --maxT=${maxT} | ${gen_nd_random} ${seed + it} --minN=1 --maxN=${maxN} > $
-    </#list>
+<#macro script2 group>
+    <#assign desc = "n <= 10**4"/>
 </#macro>
-
-<#assign scripts = [script0, script1, script2]/>
-
-<#assign maxNTotal = pow(10, 6)/>
-<#assign maxTTotal = pow(10, 3)/>
-
-<#assign maxNs = [0, 10, maxNTotal]/>
-<#assign maxTs = [0, 100, maxTTotal]/>
-
-<#assign groupsCount = maxNs?size/>
-
-<#list 0..(groupsCount - 1) as group>
-    <#assign script = scripts[group]/>
-    <@script seed = group * 1000
-             maxN = maxNs[group]
-             maxT = maxTs[group]
-    />
+<#macro script3 group>
+    <#assign desc = "full"/>    
+</#macro>
+<#assign scripts = [script0, script1, script2, script3]/>
+<#assign groupsCount = scripts?size/>
+<#list 0..<groupsCount as group_index>
+    <#assign script = scripts[group_index]/>
+    <@script group = group_index/>
 </#list>
