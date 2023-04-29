@@ -11,30 +11,26 @@ func countOperationsToEmptyArray(nums []int) int64 {
     }
     
     colors := make([]int, n) // 0 - not used
-    sizes := make([]int, 1)
+    next_color := 1
     
     for _, value := range nums {
         prev := value - 1
         
         var color int
         if prev < 0 || colors[prev] == 0 {
-            color = len(sizes)
-            sizes = append(sizes, 0)
+            color = next_color
         } else {
             color = colors[prev]
         }
         
         colors[value] = color
-        sizes[color]++
     }
     
     ans := int64(n)
     
-    suffix := 0
     for i := n - 2; i >= 0; i-- {
         if colors[i] != colors[i + 1] {
-            suffix += sizes[colors[i + 1]]
-            ans += int64(suffix)
+            ans += int64(n - 1 - i)
         }
     }
     
