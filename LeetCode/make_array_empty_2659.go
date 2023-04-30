@@ -1,35 +1,16 @@
 func countOperationsToEmptyArray(nums []int) int64 {
     n := len(nums)
     
-    sorted := make([]int, n)
-    copy(sorted, nums)
-    sort.Ints(sorted)
-    
-    for i := 0; i < n; i++ {
-        value := nums[i]
-        nums[i] = sort.SearchInts(sorted, value)
+    pos := make(map[int]int)
+    for i, value := range nums {
+        pos[value] = i
     }
-    
-    colors := make([]int, n) // 0 - not used
-    next_color := 1
-    
-    for _, value := range nums {
-        prev := value - 1
-        
-        var color int
-        if prev < 0 || colors[prev] == 0 {
-            color = next_color
-        } else {
-            color = colors[prev]
-        }
-        
-        colors[value] = color
-    }
-    
+
+    sort.Ints(nums)
+
     ans := int64(n)
-    
     for i := n - 2; i >= 0; i-- {
-        if colors[i] != colors[i + 1] {
+        if pos[nums[i]] > pos[nums[i + 1]] {
             ans += int64(n - 1 - i)
         }
     }
