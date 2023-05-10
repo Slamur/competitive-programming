@@ -5,7 +5,6 @@ type MatrixIterator interface {
 
 type SpiralIterator struct {
     xSize, ySize int
-    total int
 
     used []bool
     usedCount int
@@ -23,7 +22,6 @@ func spiral(xSize, ySize int, steps [][2]int) *SpiralIterator {
     return &SpiralIterator {
         xSize: xSize,
         ySize: ySize,
-        total: total,
 
         used: make([]bool, total),
         usedCount: 0,
@@ -50,7 +48,7 @@ func (it *SpiralIterator) canStep(nextX, nextY int) (canStep bool, cell int) {
 }
 
 func (it *SpiralIterator) Has() bool {
-    if it.usedCount == it.total {
+    if it.usedCount == len(it.used) {
         return false
     }
 
@@ -90,10 +88,8 @@ func spiralOrder(matrix [][]int) []int {
         { -1, 0 },
     }
 
-    it := spiral(xSize, ySize, steps)
-
-    answer := make([]int, 0, it.total)
-    for ; it.Has(); {
+    answer := make([]int, 0, xSize * ySize)
+    for it := spiral(xSize, ySize, steps); it.Has(); {
         x, y, _ := it.Get()
         answer = append(answer, matrix[x][y])
     }
