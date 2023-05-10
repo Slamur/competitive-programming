@@ -1,52 +1,80 @@
-type MatrixIterator interface {
-    Has() bool
-    Get() (int, int, bool)
-}
+type Step [2]int
 
+var LEFT = Step{0, 1}
+var RIGHT = Step{0, -1}
+var DOWN = Step{1, 0}
+var UP = Step{-1, 0}
+
+// iterates over all matrix cells in spiral order based on steps
+// matches the [MatrixIterator] interface
+//
+// Example of SpiralIterator using:
+//
+//  func spiralOrder(rowsCount, columnsCount int) [][2]int {
+//    steps := []Step {
+//        LEFT,
+//        DOWN,
+//        RIGHT,
+//        UP,
+//    }
+//    
+//    answer := make([][2]int, 0, rowsCount * columnsCount)
+//    for it := spiral(rowsCount, columnsCount, steps); it.Has(); {
+//        row, column, _ := it.Get()
+//        answer = append(answer, [2]int{row, column})
+//    }
+//
+//    return answer
+//  }
+//
 type SpiralIterator struct {
-    xSize, ySize int
+    rowsCount, columnsCount int
 
     used []bool
     usedCount int
 
-    steps [][2]int
+    steps []Step
     direction int
-    x, y int
+    row, column int
     cell int
 }
 
-func spiral(xSize, ySize int, steps [][2]int) *SpiralIterator {
-    total := xSize * ySize
+// creates SpiralIterator from top-left corner
+func spiral(rowsCount, columnsCount int, steps []Step) *SpiralIterator {
+    total := rowsCount * columnsCount
 
     direction := 0
     return &SpiralIterator {
-        xSize: xSize,
-        ySize: ySize,
+        rowsCount: rowsCount,
+        columnsCount: columnsCount,
 
         used: make([]bool, total),
         usedCount: 0,
 
         steps: steps,
         direction: direction,
-        x: 0,
-        y: 0,
+        row: 0,
+        column: 0,
         cell: 0,
     }
 }
 
-func (it *SpiralIterator) canStep(nextX, nextY int) (canStep bool, cell int) {
-    if nextX < 0 || it.xSize <= nextX {
+// checks if (nextX, nextY) is valid cell to go
+func (it *SpiralIterator) canStep(nextRow, nextColumn int) (canStep bool, cell int) {
+    if nextRow < 0 || it.rowsCount <= nextRow {
         return false, -1
     }
 
-    if nextY < 0 || it.ySize <= nextY {
+    if nextColumn < 0 || it.columnsCount <= nextColumn {
         return false, -1
     }
 
-    cell = nextX * it.ySize + nextY
+    cell = nextRow * it.columnsCount + nextColumn
     return !it.used[cell], cell
 }
 
+// checks if there is any unused cell
+// moves to the next unused cell in spiral order
 func (it *SpiralIterator) Has() bool {
     if it.usedCount == len(it.used) {
         return false
@@ -54,20 +82,22 @@ func (it *SpiralIterator) Has() bool {
 
     for ; it.used[it.cell]; {
         step := &it.steps[it.direction]
-        nextX, nextY := it.x + step[0], it.y + step[1]
+        nextRow, nextColumn := it.row + step[0], it.column + step[1]
 
-        canStep, nextCell := it.canStep(nextX, nextY)
+        canStep, nextCell := it.canStep(nextRow, nextColumn)
         if !canStep {
-            it.direction = (it.direction + 1) % 4
+            it.direction = (it.direction + 1) % len(it.steps)
         } else {
-            it.x, it.y, it.cell = nextX, nextY, nextCell
+            it.row, it.column, it.cell = nextRow, nextColumn, nextCell
         }
     }
 
     return true
 }
 
-func (it *SpiralIterator) Get() (x int, y int, has bool){
+// returns coordinates of the next unused cell in spiral order
+// third parameter is Has() call result
+func (it *SpiralIterator) Get() (row int, column int, has bool){
     if !it.Has() {
         return -1, -1, false
     }
@@ -75,23 +105,23 @@ func (it *SpiralIterator) Get() (x int, y int, has bool){
     it.used[it.cell] = true
     it.usedCount++
 
-    return it.x, it.y, true
+    return it.row, it.column, true
 }
 
 func spiralOrder(matrix [][]int) []int {
-    xSize, ySize := len(matrix), len(matrix[0])
+    rowsCount, columnsCount := len(matrix), len(matrix[0])
 
-    steps := [][2]int {
-        { 0, 1 },
-        { 1, 0 },
-        { 0, -1 },
-        { -1, 0 },
+    steps := []Step {
+        LEFT,
+        DOWN,
+        RIGHT,
+        UP,
     }
 
-    answer := make([]int, 0, xSize * ySize)
-    for it := spiral(xSize, ySize, steps); it.Has(); {
-        x, y, _ := it.Get()
-        answer = append(answer, matrix[x][y])
+    answer := make([]int, 0, rowsCount * columnsCount)
+    for it := spiral(rowsCount, columnsCount, steps); it.Has(); {
+        row, column, _ := it.Get()
+        answer = append(answer, matrix[row][column])
     }
 
     return answer
