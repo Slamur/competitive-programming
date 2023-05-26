@@ -1,3 +1,6 @@
+// Explanation
+// https://leetcode.com/problems/stone-game-ii/solutions/3564740/golang-recursive-dp-with-editorial/
+
 type Solver struct {
     n           int
     suffSums    []int 
