@@ -7,7 +7,8 @@ func signum(x int) int {
 func stoneGameIII(stoneValue []int) string {
     n := len(stoneValue)
 
-    dp := make([]int, n + 1)
+    maxTaken := 3
+    dp := make([]int, maxTaken + 1)
 
     inf := math.MaxInt
 
@@ -17,14 +18,14 @@ func stoneGameIII(stoneValue []int) string {
         suffSum += stoneValue[i]
 
         bestResult := inf
-        for taken := 1; taken <= 3 && i + taken <= n; taken++ {
-            result := dp[i + taken]
+        for taken := 1; taken <= maxTaken && i + taken <= n; taken++ {
+            result := dp[(i + taken) % maxTaken]
             if bestResult > result {
                 bestResult = result
             }
         }
 
-        dp[i] = suffSum - bestResult
+        dp[i % maxTaken] = suffSum - bestResult
     }
 
     sign := signum(2 * dp[0] - suffSum)
