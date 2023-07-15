@@ -1,10 +1,4 @@
-#include "testlib.h"
-#include <bits/stdc++.h>
-
-using namespace std;
-
-using ll = int64_t;
-using vi = vector<int>;
+#include "problem_lib.h"
 
 const int EOLN_SEP = 0, SPACE_SEP = 1;
 
