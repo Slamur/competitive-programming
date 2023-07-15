@@ -76,5 +76,22 @@ int any_prime(int minX, int maxX) {
 int gcd(int a, int b) {
     return a == 0 ? b : gcd(b % a, a);
 }
+
+vll catalan(int max_n) {
+    ensuref(
+        max_n >= 1,
+        "Expected max_n at least 1, but found %d",
+        max_n
+    );
+    
+    vll c(max_n + 1, 1);
+    for (int n = 2; n <= max_n; ++n) {
+        for (int left = 1; left < n; ++left) {
+            c[n] += c[left] * c[n - left];
+        }
+    }
+    
+    return c;
+}
  
 #endif
