@@ -85,7 +85,7 @@ vll catalan(int max_n) {
     );
     
     vll c(max_n + 1, 0);
-    с[0] = 1;	
+    c[0] = 1;
     for (int n = 1; n <= max_n; ++n) {
         for (int left = 1; left <= n; ++left) {
             c[n] += c[left - 1] * c[n - left];
