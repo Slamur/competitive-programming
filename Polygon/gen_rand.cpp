@@ -1,16 +1,15 @@
 #include "problem_lib.h"
 
 int main(int argc, char **argv) {
-    registerGen(argc, argv, 1);
+	registerGen(argc, argv, 1);
 
-    int minN = opt<int>("minN");
-    int maxN = opt<int>("maxN");
+	int minN = opt<int>("minN");
+	int maxN = opt<int>("maxN");
 
-    auto gen_test = [&]() {
-  	int n = rnd.next(minN, maxN);
+	auto gen_test = [&]() {
+		int n = rnd.next(minN, maxN);
+		println(n);
+	};
 
-	cout << n << ENDL;	
-    };
-
-    gen_test();
+	gen_test();
 }
