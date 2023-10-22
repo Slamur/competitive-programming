@@ -9,7 +9,7 @@
 <#assign gen_rand = gen_name("random")/>
 
 <#function div a b>
-    <#return (a / b)?int>
+    <#return (a / b)?long>
 </#function>
 
 <#function min a b>
