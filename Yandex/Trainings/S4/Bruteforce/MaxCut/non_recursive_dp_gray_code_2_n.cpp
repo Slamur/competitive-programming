@@ -36,7 +36,8 @@ void solve() {
 		int v_0 = 0;
 		int prev_subset = 0;
 		cuts[1 << v] += total_sum;
-		
+
+		// https://neerc.ifmo.ru/wiki/index.php?title=Коды_Грея
 		for (int i = 1; i < pref_subsets; ++i) {
 			int subset = i ^ (i >> 1);
 			
