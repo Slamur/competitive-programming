@@ -1,0 +1,62 @@
+<#asssign desc = "Generators"/>
+
+<#assign a_rand = "a_rand"/>
+<#assign q_rand = "q_rand"/>
+
+<#asssign desc = "Functions"/>
+
+<#function div a b>
+    <#return (a / b)?long>
+</#function>
+
+<#function min a b>
+    <#return [a, b]?sort?first>
+</#function>
+
+<#function max a b>
+    <#return [a, b]?sort?last>
+</#function>
+
+<#function pow base power>
+    <#assign res = 1/>
+    <#list 1..power as it>
+        <#assign res = res * base/>
+    </#list>
+    <#return res>
+</#function>
+
+<#function fact n>
+    <#assign res = 1/>
+    <#list 1..n as it>
+        <#assign res = res * it/>
+    </#list>
+    <#return res>
+</#function>
+
+<#asssign desc = "Constraints"/>
+
+<#assign minN = 1/>
+<#assign maxN = pow(10, 6)/>
+
+<#assign minA = 1/>
+<#assign maxA = pow(10, 9)/>
+
+<#assign minQ = 1/>
+<#assign maxQ = 3 * pow(10, 5)/>
+
+<#assign desc = "Small tests"/>
+
+<#assign smallN = 10/>
+<#assign smallA = pow(10, 3)/>
+<#assign smallQ = 100/>
+
+<#list minN..smallN as n>
+    ${a_rand} -n=${n} -minA=${minA} -maxA=${smallA} | ${q_rand} -q=${smallQ} > $
+</#list>
+
+<#assign desc = "Large tests"/>
+
+${a_rand} -n=${maxN} -minA=${minA} -maxA=${maxA} | ${q_rand} -q=${minQ} > $
+${a_rand} -n=${maxN} -minA=${minA} -maxA=${maxA} | ${q_rand} -q=${maxQ} > $
+${a_rand} -n=${maxN} -minA=${minA} -maxA=${smallA} | ${q_rand} -q=${maxQ} > $
+${a_rand} -n=${maxN} -minA=${maxA - smallA} -maxA=${maxA} | ${q_rand} -q=${maxQ} > $
