@@ -1,9 +1,9 @@
-<#asssign desc = "Generators"/>
+<#assign desc = "Generators"/>
 
 <#assign a_rand = "a_rand"/>
 <#assign q_rand = "q_rand"/>
 
-<#asssign desc = "Functions"/>
+<#assign desc = "Functions"/>
 
 <#function div a b>
     <#return (a / b)?long>
@@ -33,7 +33,7 @@
     <#return res>
 </#function>
 
-<#asssign desc = "Constraints"/>
+<#assign desc = "Constraints"/>
 
 <#assign minN = 1/>
 <#assign maxN = pow(10, 6)/>
