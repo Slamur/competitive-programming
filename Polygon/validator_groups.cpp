@@ -6,7 +6,7 @@ int main(int argc, char* argv[])
 	
 	const int MIN_N = 1, MAX_N = 1e6;
 
-	struct group_data { int maxN; }
+	struct group_data { int maxN; };
    
 	vector<group_data> groups = {
 		{NAX_N}, // samples
