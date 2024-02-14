@@ -1,14 +1,4 @@
-#include "testlib.h"
-#include <utility>
-#include <cmath>
-#include <set>
-#include <vector>
-using namespace std;
-
-using ll = long long;
-using vi = vector<int>;
-
-const bool SPACE_SEP = false, EOLN_SEP = true;
+#include "problem_lib.h"
 
 int read_int(int min_value, int max_value, string const& name, bool separator = EOLN_SEP) {
     int result = inf.readInt(min_value, max_value, name);
@@ -17,10 +7,6 @@ int read_int(int min_value, int max_value, string const& name, bool separator = 
     else inf.readSpace();
 
     return result;
-}
-
-int read_int_spaced(int min_value, int max_value, string const& name) {
-    return read_int(min_value, max_value, name, false);
 }
 
 vi read_ints(int size, int min_value, int max_value, string const& name) {
