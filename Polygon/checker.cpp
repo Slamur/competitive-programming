@@ -21,6 +21,7 @@ int main(int argc, char * argv[])
     // read input
 
     auto read_answer = [&](InStream & stream) {
+        return answer_t{};
     };
  
     auto read_answer_from = [&](InStream & stream) {
