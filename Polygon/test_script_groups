@@ -1,0 +1,19 @@
+<#assign maxNs = [3, 100, pow(10, 4), infN]/>
+<#macro script0 group>
+    <#assign desc = "samples"/>
+</#macro>
+<#macro script1 group>
+    <#assign desc = "n <= 100"/>
+</#macro>
+<#macro script2 group>
+    <#assign desc = "n <= 10**4"/>
+</#macro>
+<#macro script3 group>
+    <#assign desc = "full"/>    
+</#macro>
+<#assign scripts = [script0, script1, script2, script3]/>
+<#assign groupsCount = scripts?size/>
+<#list 0..<groupsCount as group_index>
+    <#assign script = scripts[group_index]/>
+    <@script group = group_index/>
+</#list>
