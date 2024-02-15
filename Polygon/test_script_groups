@@ -1,4 +1,4 @@
-<#assign largeNs = [3, 100, pow(10, 4), maxN]/>
+<#assign largeNs = [minN - 1, 100, pow(10, 4), maxN]/>
 <#macro script0 group>
     <#assign desc = "samples"/>
 </#macro>
