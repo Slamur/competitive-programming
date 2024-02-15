@@ -3,12 +3,17 @@
 int main(int argc, char **argv) {
 	registerGen(argc, argv, 1);
 
-	int minN = opt<int>("minN");
-	int maxN = opt<int>("maxN");
+	int n = opt<int>("n");
+
+	int minA = opt<int>("minA");
+	int maxA = opt<int>("maxA");
 
 	auto gen_test = [&]() {
-		int n = rnd.next(minN, maxN);
+		vi a(n);
+		for (auto& v : a) v = rnd.next(minA, maxA);
+
 		println(n);
+		println(a);
 	};
 
 	gen_test();
