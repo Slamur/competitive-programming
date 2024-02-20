@@ -9,7 +9,7 @@ int main(int argc, char* argv[])
 	struct group_data { int maxN; };
    
 	vector<group_data> groups = {
-		{NAX_N}, // samples
+		{MAX_N}, // samples
 		{100}, // group 1
 		{1e4}, // group 2
 		{MAX_N} // group 3
