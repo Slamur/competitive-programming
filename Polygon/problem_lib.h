@@ -97,6 +97,8 @@ vll catalan(int max_n) {
 
 // validator functions
 
+const char EOLN_SEP = ENDL, SPACE_SEP = SPACE;
+
 int read_int(int min_value, int max_value, string const& name, int separator = EOLN_SEP) {
     int result = inf.readInt(min_value, max_value, name);
 
