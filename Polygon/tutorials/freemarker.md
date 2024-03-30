@@ -74,7 +74,7 @@
 
 ### Условный оператор if
 
-- [Ссылка](https://freeamarker.apache.org/docs/ref_directive_if.html) на документацию.
+- [Ссылка](https://freemarker.apache.org/docs/ref_directive_if.html) на документацию.
 
 ### Функции
 
