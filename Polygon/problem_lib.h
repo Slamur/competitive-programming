@@ -4,20 +4,18 @@
 #include "testlib.h"
 #include <bits/stdc++.h>
  
-using namespace std;
- 
 using ld = long double;
-using vi = vector<int>;
+using vi = std::vector<int>;
 using ll = long long;
-using vll = vector<ll>;
-using ii = pair<int, int>;
-using vii = vector<ii>;
-using vs = vector<string>;
+using vll = std::vector<ll>;
+using ii = std::pair<int, int>;
+using vii = std::vector<ii>;
+using vs = std::vector<std::string>;
  
 template<typename T>
 T read() {
     T value;
-    cin >> value;
+    std::cin >> value;
     return value;
 }
  
@@ -29,13 +27,13 @@ ll rll() {
     return read<ll>();
 }
  
-string rs() {
-    return read<string>();
+std::string rs() {
+    return read<std::string>();
 }
  
 template <typename T>
-vector<T> rv(int size) {
-	vector<T> values(size);
+std::vector<T> rv(int size) {
+	std::vector<T> values(size);
 	for (auto& value : values) value = read<T>();
 	return values;
 }
@@ -76,7 +74,7 @@ int any_prime(int minX, int maxX) {
 int gcd(int a, int b) {
     return a == 0 ? b : gcd(b % a, a);
 }
-
+ 
 vll catalan(int max_n) {
     ensuref(
         max_n >= 1,
@@ -94,28 +92,11 @@ vll catalan(int max_n) {
     
     return c;
 }
-
+ 
 // validator functions
-
-const char EOLN_SEP = ENDL, SPACE_SEP = SPACE;
-
-int read_int(int min_value, int max_value, string const& name, int separator = EOLN_SEP) {
-    int result = inf.readInt(min_value, max_value, name);
-
-    if (EOLN_SEP == separator) inf.readEoln();
-    else inf.readSpace();
-
-    return result;
-}
-
-vi read_ints(int size, int min_value, int max_value, string const& name) {
-    vi result = inf.readInts(size, min_value, max_value, name);
-    inf.readEoln();
-    return result;
-};
-
+ 
 template <typename T, typename L, typename R>
-void ensure_limits(const string& name, const T& value, const L& min_value, const R& max_value) {
+void ensure_limits(const std::string& name, const T& value, const L& min_value, const R& max_value) {
     ensuref(
         min_value <= value && value <= max_value,
         "Expected %s in [%d, %d], but found %d",
