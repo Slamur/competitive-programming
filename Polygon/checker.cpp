@@ -1,16 +1,16 @@
 #include "problem_lib.h"
 
-using answer_t = ll;
+using answer_t = int;
  
 void quit_answer(answer_t expected, answer_t actual, InStream & stream) {
     stream.quitf(
         _wa,
-        "answer is not best: expected answer %lld, found answer %lld",
+        "answer is not best: expected answer %d, found answer %d",
         expected, actual
     );
 }
  
-bool better(answer_t first, answer_t second) {
+bool left_better(answer_t left, answer_t right) {
     
 }
  
@@ -40,8 +40,8 @@ int main(int argc, char * argv[])
     answer_t ja = read_answer_from(ans);
     answer_t pa = read_answer_from(ouf);
  
-    if (better(pa, ja)) quit_answer(ja, pa, ans);
-    if (better(ja, pa)) quit_answer(ja, pa, ouf);
+    if (left_better(pa, ja)) quit_answer(ja, pa, ans);
+    if (left_better(ja, pa)) quit_answer(ja, pa, ouf);
  
-    quitf(_ok, "OK (answer %lld)", pa);
+    quitf(_ok, "OK (answer %d)", pa);
 }
