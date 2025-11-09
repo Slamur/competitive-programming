@@ -1,3 +1,5 @@
+// I wrote a huge stress for this problem and decided to keep it (commented parts)
+
 #include <bits/stdc++.h>
 
 int64_t get_ans(int n, std::vector<int> a, int b_size, std::vector<int> b) {
