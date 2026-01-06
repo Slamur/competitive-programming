@@ -6,4 +6,4 @@ Statements in **[one file](https://drive.google.com/file/d/1vKUyR6Q5o8OFWvunxNdG
 
 Problems could be submitted **[here](https://olymp.krsu.edu.kg/GeneralProblemset.aspx)** (from 3452 to 3459).
 
-## [My editorial](https://drive.google.com/file/d/1-V47jSExEM5eXBrMfjcDEgyQ-pVdxp1X)
+## [My editorial](https://drive.google.com/file/d/16SZiX07TpJCy3mlgMwpEaUdAakP7TdUY/)
