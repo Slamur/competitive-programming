@@ -93,6 +93,12 @@ vll catalan(int max_n) {
     return c;
 }
  
+// test groups functions
+ 
+int group_index() {
+    return (validator.group() != "") ? stoi(validator.group()) : 0;
+};
+ 
 // validator functions
  
 template <typename T, typename L, typename R>
@@ -103,5 +109,40 @@ void ensure_limits(const std::string& name, const T& value, const L& min_value, 
         name.c_str(), min_value, max_value, value
     );
 }
+ 
+int string_to_int(const std::string& text, const std::string& name) {
+    std::stringstream ss(text);
+    
+    int result;
+    ss >> result;
+ 
+    ensuref(
+        ss.fail() || !ss.eof(),
+        "Expected int variable %s, but found '%s'",
+        name.c_str(), text.c_str()
+    );
+ 
+    return result;
+}
+ 
+// checker functions
+ 
+int string_to_int(const std::string& text, const std::string& name, InStream& stream) {
+    std::stringstream ss(text);
+    
+    int result;
+    ss >> result;
+ 
+    stream.quitif(
+        ss.fail() || !ss.eof(),
+        _pe,
+        "Expected int variable %s, but found '%s'",
+        name.c_str(), text.c_str()
+    );
+ 
+    return result;
+}
+ 
+// problem-specific
  
 #endif

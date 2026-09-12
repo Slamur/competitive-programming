@@ -1,17 +1,153 @@
-<#assign largeNs = [minN - 1, 100, pow(10, 4), maxN]/>
+<#assign desc = "Generators"/>
+<#assign rand = "gen_rand"/>
+<#assign prime = "gen_prime"/>
+<#assign desc = "Functions"/>
+<#function div a b>
+    <#return (a / b)?long>
+</#function>
+<#function ceil a b>
+    <#return div(a - 1, b) + 1/>
+</#function>
+<#function min a b>
+    <#return [a, b]?sort?first>
+</#function>
+<#function max a b>
+    <#return [a, b]?sort?last>
+</#function>
+<#function pow base power>
+    <#assign powRes = 1/>
+    <#list 0..<power as it>
+        <#assign powRes = powRes * base/>
+    </#list>
+    <#return powRes>
+</#function>
+<#function fact n>
+    <#assign factRes = 1/>
+    <#list 0..<n as it>
+        <#assign factRes = factRes * (it + 1)/>
+    </#list>
+    <#return factRes>
+</#function>
+<#function sqrt n>
+	<#assign sqrtRes = 0/>
+	<#list 30..0 as it>
+	    	<#assign nextRes = sqrtRes + pow(2, it)/>
+		<#if nextRes * nextRes <= n>
+		    <#assign sqrtRes = nextRes/>
+		</#if>
+	</#list>
+	<#return sqrtRes/>
+</#function>
+<#assign desc = "Constraints"/>
+<#assign minN = 1/>
+<#assign maxN = pow(10, 9)/>
+<#assign desc = "Groups"/> 
+<#assign e1 = pow(10, 1)/>
+<#assign e3 = pow(10, 3)/>
+<#assign e6 = pow(10, 6)/>
+<#assign defaultTestCount = 10/>
+<#assign max2Pow = 32/>
+<#assign constraints = [
+	{"id": 0},
+	{"id": 1, "endN": e1, "prevN": minN - 1},
+	{"id": 2, "endN": e3, "prevN": e1, "tc": defaultTestCount},
+	{"id": 3, "endN": e6, "prevN": e3, "tc": defaultTestCount},
+	{"id": 4, "endN": maxN, "prevN": e1, "prime": true, "tc": defaultTestCount},
+	{"id": 5, "endN": maxN, "prevN": e1, "pow2": true, "tc": max2Pow},
+	{"id": 6, "endN": maxN, "prevN": e6, "tc": defaultTestCount}
+]/>
 <#macro script0 group>
     <#assign desc = "samples"/>
 </#macro>
 <#macro script1 group>
-    <#assign desc = "n <= 100"/>
+	<#assign desc = "n <= 10"/>
+	<#assign constraint = constraints[group]/>
+	<#assign groupId = constraint["id"]/>
+	<#assign endN = constraint["endN"]/>
+	<#assign startN = constraint["prevN"] + 1/>
+	<#list startN..endN as n>
+		${rand} -minN=${n} -maxN=${n} -group=${groupId} > $
+	</#list>
 </#macro>
 <#macro script2 group>
-    <#assign desc = "n <= 10**4"/>
+	<#assign desc = "n <= 10**3"/>
+	<#assign constraint = constraints[group]/>
+	<#assign groupId = constraint["id"]/>
+	<#assign endN = constraint["endN"]/>
+	<#assign startN = constraint["prevN"] + 1/>
+	<#assign testCount = constraint["tc"]/>
+	<#assign step = ceil(endN - startN, testCount)/>
+	<#list 0..<testCount as test>
+		<#assign testStartN = startN + step * test/>
+		<#assign testEndN = min(endN, testStartN + step)/>
+		${rand} -minN=${testStartN} -maxN=${testEndN} -group=${groupId} > $
+	</#list>
 </#macro>
 <#macro script3 group>
-    <#assign desc = "full"/>    
+	<#assign desc = "n <= 10**6"/>
+	<#assign constraint = constraints[group]/>
+	<#assign groupId = constraint["id"]/>
+	<#assign endN = constraint["endN"]/>
+	<#assign startN = constraint["prevN"] + 1/>
+	<#assign testCount = constraint["tc"]/>
+	<#assign step = ceil(endN - startN, testCount)/>
+	<#list 0..<testCount as test>
+		<#assign testStartN = startN + step * test/>
+		<#assign testEndN = min(endN, testStartN + step)/>
+		${rand} -minN=${testStartN} -maxN=${testEndN} -group=${groupId} > $
+	</#list>
 </#macro>
-<#assign scripts = [script0, script1, script2, script3]/>
+<#macro script4 group>
+	<#assign desc = "n is prime"/>
+	<#assign constraint = constraints[group]/>
+	<#assign groupId = constraint["id"]/>
+	<#assign endN = constraint["endN"]/>
+	<#assign startN = constraint["prevN"] + 1/>
+	<#assign testCount = constraint["tc"]/>
+	<#assign step = ceil(endN - startN, testCount)/>
+	<#list 0..<testCount as test>
+		<#assign testStartN = startN + step * test/>
+		<#assign testEndN = min(endN, testStartN + step)/>
+		${prime} -minN=${testStartN} -maxN=${testEndN} -group=${groupId} > $
+	</#list>
+</#macro>
+<#macro script5 group>
+	<#assign desc = "n == 2**k"/>
+	<#assign constraint = constraints[group]/>
+	<#assign groupId = constraint["id"]/>
+	<#assign endN = constraint["endN"]/>
+	<#assign startN = constraint["prevN"] + 1/>
+	<#assign testCount = constraint["tc"]/>
+	<#list 0..<testCount as test>
+		<#assign pow2 = pow(2, test)/>
+		<#if startN <= pow2 && pow2 <= endN>
+			${rand} -minN=${pow2} -maxN=${pow2} -group=${groupId} > $
+		</#if>
+	</#list>
+</#macro>
+<#macro script6 group>
+	<#assign desc = "full"/>   
+	<#assign constraint = constraints[group]/>
+	<#assign groupId = constraint["id"]/>
+	<#assign endN = constraint["endN"]/>
+	<#assign startN = constraint["prevN"] + 1/>
+	<#assign testCount = constraint["tc"]/>
+	<#assign step = ceil(endN - startN, testCount)/>
+	<#list 0..<testCount as test>
+		<#assign testStartN = startN + step * test/>
+		<#assign testEndN = min(endN, testStartN + step)/>
+		${rand} -minN=${testStartN} -maxN=${testEndN} -group=${groupId} > $
+	</#list>
+</#macro>
+<#assign scripts = [
+	script0, 
+	script1, 
+	script2, 
+	script3, 
+	script4, 
+	script5, 
+	script6
+]/>
 <#assign groupsCount = scripts?size/>
 <#list 0..<groupsCount as group_index>
     <#assign script = scripts[group_index]/>
